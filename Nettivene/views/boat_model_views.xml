@@ -1,0 +1,75 @@
+<odoo>
+
+    <!-- Boat Model Form View-->
+    <record id="boat_model_form_view" model="ir.ui.view">
+        <field name="name">boat.model.form</field>
+        <field name="model">boat.model</field>
+        <field name="arch" type="xml">
+            <form string="Boat Model">
+                <sheet>
+                    <group>
+                        <h1><field name="name"/></h1>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="make"/>
+                            <field name="year"/>
+                        </group>
+                        <group>
+                            <field name="model"/>
+
+                        </group>
+
+                    </group>
+                    <group>
+                        <field name="equipment_ids">
+                            <tree editable="top">
+                                <field name="equip_id"/>
+                                <field name="default_code"/>
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Boat Model Tree View-->
+    <record id="boat_model_tree_view" model="ir.ui.view">
+        <field name="name">boat.model.tree</field>
+        <field name="model">boat.model</field>
+        <field name="arch" type="xml">
+            <tree string="Boat Model">
+                <field name="name"/>
+                <field name="make"/>
+                <field name="year"/>
+                <field name="model"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Boat List Tree View-->
+    <record id="boat_list_tree_view" model="ir.ui.view">
+        <field name="name">boat.list.tree</field>
+        <field name="model">boat.list</field>
+        <field name="arch" type="xml">
+            <tree string="Boat List" editable="top" create="0">
+                <field name="select"/>
+                <field name="boat_id" readonly="1"/>
+                <field name="standard_price" readonly="1"/>
+                <field name="list_price" readonly="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="boat_model_action" model="ir.actions.act_window">
+        <field name="name">Boat Model</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">boat.model</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="Nettivene.boat_model_tree_view"/>
+    </record>
+
+    <menuitem id="boat_model_menu" name="Boat Models" parent="sale.product_menu_catalog" action="Nettivene.boat_model_action" sequence="6" />
+
+</odoo>

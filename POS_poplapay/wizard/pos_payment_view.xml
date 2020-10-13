@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+  <!-- inherit to pos.make.payment and replace the make payment button-->
+      <record id="pos_make_payment_inherit_1" model="ir.ui.view">
+          <field name="name">pos_make_payment_form_inherit</field>
+          <field name="model">pos.make.payment</field>
+          <field name="inherit_id" ref="point_of_sale.view_pos_payment"/>
+          <field name="arch" type="xml">
+              <xpath expr="//form/footer/button[@name='check']" position="replace">
+                <button name="check_data" string="Make Payment" type="object" class="btn-primary"/>
+              </xpath>
+              <xpath expr="//form" position="inside">
+                <div id="div_refund">
+                  <input class="btn button_popla_refund next highlight" id="button_refund_cancle" style='visibility:hidden' value="Cancel" type="button"/>
+                </div>
+              </xpath>
+          </field>
+      </record>
+
+</odoo>

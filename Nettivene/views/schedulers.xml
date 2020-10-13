@@ -1,0 +1,35 @@
+<odoo>
+    <record id="nettix_get_access_token_cron" model="ir.cron">
+        <field name="name">Get Access Token from Nettix</field>
+        <field name="model_id" ref="model_res_config_settings"/>
+        <field name="state">code</field>
+        <field name="code">model.get_access_token()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="active" eval="True"/>
+        <field name="doall" eval="False"/>
+    </record>
+    <record id="nettix_sync_dealers_cron" model="ir.cron">
+        <field name="name">Sync Dealers from Nettix</field>
+        <field name="model_id" ref="model_res_partner"/>
+        <field name="state">code</field>
+        <field name="code">model.sync_dealers()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="active" eval="True"/>
+        <field name="doall" eval="False"/>
+    </record>
+    <record id="nettix_sync_nettix_options_cron" model="ir.cron">
+        <field name="name">Sync Options from Nettix</field>
+        <field name="model_id" ref="model_nettix_options"/>
+        <field name="state">code</field>
+        <field name="code">model.sync_data()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="active" eval="True"/>
+        <field name="doall" eval="False"/>
+    </record>
+</odoo>

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+
+<odoo>
+    <!-- For template-->
+    <record id="inherit_product_template_only_form_view" model="ir.ui.view">
+        <field name="name">product.template</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_title')]" position="inside">
+                <field name="image_url" placeholder="Enter your image URL"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- For product--> 
+    <record id="inherit_product_normal_form_view" model="ir.ui.view">
+        <field name="name">product.product</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+             <xpath expr="//div[hasclass('oe_title')]" position="inside">
+                <field name="image_url" placeholder="Enter your image URL"/>
+            </xpath>
+        </field>
+    </record>
+</odoo> 

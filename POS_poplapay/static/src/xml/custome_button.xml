@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates id="template" xml:space="preserve">
+
+  <t t-name="OrderReceipt" t-extend="OrderReceipt">
+    <t t-jquery=".orderlines" t-operation="after">
+      <t t-if="order.transaction_data">
+          <br/>
+          <div>
+              Card Name:
+              <t t-esc="order.transaction_data.card_name" class="pos-receipt-right-align"/><br/>
+          </div>
+          <br/>
+          <div>
+            Card Number:
+            <t t-esc="order.transaction_data.pan_masked_for_customer" class="pos-receipt-right-align"/><br/>
+          </div>
+          <br/>
+          <div>
+            Transaction ID:
+            <t t-esc="order.transaction_data.transaction_id" class="pos-receipt-right-align"/><br/>
+          </div>
+          <br/>
+          <div>
+            Aviite:
+            <t t-esc="order.aviite" class="pos-receipt-right-align"/><br/>
+          </div>
+          <br/>
+          <div>
+            Ala :
+            <t t-esc="order.ala" class="pos-receipt-right-align"/><br/>
+          </div>
+          <br/>
+          <div>
+            T ID:
+            <t t-esc="order.t_print" class="pos-receipt-right-align"/><br/>
+          </div>
+          <hr/>
+          <br/>
+          <div>
+            Transaction time:
+            <t t-esc="order.formatted_validation_date" class="pos-receipt-right-align"/><br/>
+          </div>
+      </t>
+      <br/><br/>
+    </t>
+  </t>
+
+
+  <t t-extend="PaymentScreenWidget">
+    <t t-jquery=".left-content.pc40" t-operation="inner">
+      <div class='paymentmethods-container'></div>
+      <div class="btn_new o_cp_left" style="width: auto;">
+        <div class="container">
+          <div id="myDIV">
+            <button class="button_popla next highlight" id="button_popla_cancle" style='visibility:hidden' type="button">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </t>
+  </t>
+</templates>

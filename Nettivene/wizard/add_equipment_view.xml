@@ -1,0 +1,27 @@
+<odoo>
+    <data>
+        <record id="add_equipment_form" model="ir.ui.view">
+			<field name="name">add.equipment.form</field>
+			<field name="model">add.equipment.wizard</field>
+			<field name="arch" type="xml">
+				<form>
+					<field name="records"/>
+					<footer>
+						<button name="confirm_button" string="Confirm" type="object" class="oe_highlight"/>
+					</footer>
+				</form>
+			</field>
+		</record>
+
+        <record id="add_equipment_wizard" model="ir.actions.act_window">
+			<field name="name">Add Equipments</field>
+			<field name="res_model">add.equipment.wizard</field>
+<!--			<field name="view_type">form</field>-->
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+			<field name="view_id" ref="add_equipment_form"/>
+		</record>
+
+
+    </data>
+</odoo>

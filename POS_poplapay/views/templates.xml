@@ -1,0 +1,11 @@
+<odoo>
+  <template id="s_curve_button_ext_js1" name="Refund Poplapay" inherit_id="web.assets_common">
+      <xpath expr="." position="inside">
+          <script type="text/javascript"
+                  src="/POS_poplapay/static/src/js/refund_payment.js"></script>
+          <link rel="stylesheet" href="/POS_poplapay/static/src/css/style_poplapay.css"/>
+          <link rel="stylesheet" href="/POS_poplapay/static/src/css/style_refund_btn.css"/>
+          <script type="text/javascript" src="/POS_poplapay/static/src/js/pop_sweetalert.js"></script>
+      </xpath>
+  </template>
+</odoo>

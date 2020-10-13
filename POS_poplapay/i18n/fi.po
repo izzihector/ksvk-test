@@ -1,0 +1,299 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* POS_poplapay
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-18 07:26+0000\n"
+"PO-Revision-Date: 2019-10-18 07:26+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: POS_poplapay
+#: model_terms:ir.ui.view,arch_db:POS_poplapay.res_config_settings_view_form_1
+msgid "<span class=\"o_form_label\">Poplapay Payment methods</span>"
+msgstr ""
+
+#. module: POS_poplapay
+#: model_terms:ir.ui.view,arch_db:POS_poplapay.res_config_settings_view_form_1
+msgid "API"
+msgstr ""
+
+#. module: POS_poplapay
+#: model:ir.model.fields,field_description:POS_poplapay.field_pos_config__api_key
+msgid "API Key"
+msgstr ""
+
+#. module: POS_poplapay
+#: model_terms:ir.ui.view,arch_db:POS_poplapay.res_config_settings_view_form_1
+msgid "Add Poplapay Username and Password"
+msgstr "Lisää Poplapay-käyttäjänimi ja salasana"
+
+#. module: POS_poplapay
+#: model:ir.model.fields,field_description:POS_poplapay.field_pos_order__ala
+msgid "Ala"
+msgstr "Ala"
+
+#. module: POS_poplapay
+#. openerp-web
+#: code:addons/POS_poplapay/static/src/xml/custome_button.xml:18
+#, python-format
+msgid "Ala :"
+msgstr "Ala"
+
+#. module: POS_poplapay
+#: model:ir.model.fields,field_description:POS_poplapay.field_pos_order__amount
+msgid "Amount"
+msgstr "Määrä"
+
+#. module: POS_poplapay
+#: model:ir.model.fields,field_description:POS_poplapay.field_pos_order__aviite
+msgid "Aviite"
+msgstr "Aviite"
+
+#. module: POS_poplapay
+#. openerp-web
+#: code:addons/POS_poplapay/static/src/xml/custome_button.xml:14
+#, python-format
+msgid "Aviite:"
+msgstr "Aviite"
+
+#. module: POS_poplapay
+#. openerp-web
+#: code:addons/POS_poplapay/static/src/js/poplapay.js:104
+#: code:addons/POS_poplapay/static/src/js/poplapay.js:176
+#: code:addons/POS_poplapay/static/src/js/poplapay.js:207
+#: code:addons/POS_poplapay/static/src/js/refund_payment.js:90
+#: code:addons/POS_poplapay/static/src/js/refund_payment.js:150
+#: code:addons/POS_poplapay/static/src/js/refund_payment.js:191
+#, python-format
+msgid "Cancel!"
+msgstr "Keskeytä"
+
+#. module: POS_poplapay
+#. openerp-web
+#: code:addons/POS_poplapay/static/src/xml/custome_button.xml:30
+#, python-format
+msgid "Card Name:"
+msgstr "Kortin nimi"
+
+#. module: POS_poplapay
+#. openerp-web
+#: code:addons/POS_poplapay/static/src/xml/custome_button.xml:26
+#, python-format
+msgid "Card Number:"
+msgstr "Kortin numero"
+
+#. module: POS_poplapay
+#. openerp-web
+#: code:addons/POS_poplapay/static/src/xml/custome_button.xml:48
+#, python-format
+msgid "Cancel:"
+msgstr "Keskeytä"
+
+#. module: POS_poplapay
+#: model_terms:ir.ui.view,arch_db:POS_poplapay.res_config_settings_view_form_1
+msgid "Configuration for Poplapay Payment of PoS Payment Method"
+msgstr "PoS-maksutavan Poplapay-maksun määritykset"
+
+#. module: POS_poplapay
+#. openerp-web
+#: code:addons/POS_poplapay/static/src/js/poplapay.js:108
+#: code:addons/POS_poplapay/static/src/js/poplapay.js:180
+#: code:addons/POS_poplapay/static/src/js/poplapay.js:211
+#: code:addons/POS_poplapay/static/src/js/refund_payment.js:94
+#: code:addons/POS_poplapay/static/src/js/refund_payment.js:154
+#: code:addons/POS_poplapay/static/src/js/refund_payment.js:195
+#, python-format
+msgid "Confirm!"
+msgstr "Vahvistaa"
+
+#. module: POS_poplapay
+#: model:ir.model,name:POS_poplapay.model_res_partner
+msgid "Contact"
+msgstr "Kontakti"
+
+#. module: POS_poplapay
+#: model:ir.model.fields,field_description:POS_poplapay.field_pos_order__currency
+msgid "Currency"
+msgstr "Valuutta"
+
+#. module: POS_poplapay
+#. openerp-web
+#: code:addons/POS_poplapay/static/src/js/refund_payment.js:128
+#, python-format
+msgid "Done!"
+msgstr "Maksettu"
+
+#. module: POS_poplapay
+#. openerp-web
+#: code:addons/POS_poplapay/static/src/js/poplapay.js:171
+#: code:addons/POS_poplapay/static/src/js/poplapay.js:202
+#: code:addons/POS_poplapay/static/src/js/refund_payment.js:145
+#: code:addons/POS_poplapay/static/src/js/refund_payment.js:186
+#, python-format
+msgid "Error!"
+msgstr "Virhe!"
+
+#. module: POS_poplapay
+#: model:ir.model.fields,field_description:POS_poplapay.field_pos_config__hardware_id
+#: model_terms:ir.ui.view,arch_db:POS_poplapay.res_config_settings_view_form_1
+msgid "Hardware ID"
+msgstr "Laitetunnus"
+
+#. module: POS_poplapay
+#: model_terms:ir.ui.view,arch_db:POS_poplapay.pos_make_payment_inherit_1
+msgid "Make Payment"
+msgstr "Tee maksu"
+
+#. module: POS_poplapay
+#: model:ir.model.fields,field_description:POS_poplapay.field_pos_order__merchant_receipt
+msgid "Merchant Receipt"
+msgstr ""
+
+#. module: POS_poplapay
+#: model_terms:ir.ui.view,arch_db:POS_poplapay.res_config_settings_view_form_1
+msgid "Password"
+msgstr "Salasana"
+
+#. module: POS_poplapay
+#. openerp-web
+#: code:addons/POS_poplapay/static/src/js/refund_payment.js:129
+#, python-format
+msgid "Payment Successfully!"
+msgstr "Maksu suoritettu!"
+
+#. module: POS_poplapay
+#: model:ir.model,name:POS_poplapay.model_pos_config
+msgid "Point of Sale Configuration"
+msgstr "Kassapäätteen asetukset"
+
+#. module: POS_poplapay
+#: model:ir.model,name:POS_poplapay.model_pos_order
+msgid "Point of Sale Orders"
+msgstr "Kassapäätteen tilaukset"
+
+#. module: POS_poplapay
+#: model:ir.model,name:POS_poplapay.model_pos_make_payment
+msgid "Point of Sale Payment"
+msgstr "Kassapäätteen maksu"
+
+#. module: POS_poplapay
+#: model_terms:ir.ui.view,arch_db:POS_poplapay.pos_order_websocket_inherit_1
+msgid "Poplapay Details"
+msgstr ""
+
+#. module: POS_poplapay
+#: model:ir.model.fields,field_description:POS_poplapay.field_pos_config__poplapay_journal_id
+msgid "Poplapay Journal"
+msgstr ""
+
+#. module: POS_poplapay
+#: model_terms:ir.ui.view,arch_db:POS_poplapay.res_config_settings_view_form_1
+msgid "Poplapay Payment"
+msgstr ""
+
+#. module: POS_poplapay
+#: model:ir.model.fields,field_description:POS_poplapay.field_pos_order__refund_transaction_data
+msgid "Refund Data"
+msgstr "Hyvitystiedot"
+
+#. module: POS_poplapay
+#: model:ir.model.fields,field_description:POS_poplapay.field_pos_order__refund_transaction_id
+msgid "Refund Transaction ID"
+msgstr "Hyvitä tapahtuman tunnus"
+
+#. module: POS_poplapay
+#. openerp-web
+#: code:addons/POS_poplapay/static/src/js/poplapay.js:100
+#: code:addons/POS_poplapay/static/src/js/refund_payment.js:86
+#, python-format
+msgid "Session Out"
+msgstr "Istunto pois"
+
+#. module: POS_poplapay
+#. openerp-web
+#: code:addons/POS_poplapay/static/src/xml/custome_button.xml:22
+#, python-format
+msgid "T ID:"
+msgstr "T ID"
+
+#. module: POS_poplapay
+#: model:ir.model.fields,field_description:POS_poplapay.field_pos_config__terminal_id
+#: model_terms:ir.ui.view,arch_db:POS_poplapay.res_config_settings_view_form_1
+msgid "Terminal ID"
+msgstr "Päätelaitteen tunnus"
+
+#. module: POS_poplapay
+#. openerp-web
+#: code:addons/POS_poplapay/static/src/js/poplapay.js:99
+#: code:addons/POS_poplapay/static/src/js/refund_payment.js:85
+#, python-format
+msgid "Timeout!"
+msgstr "Aikalisä"
+
+#. module: POS_poplapay
+#: model:ir.model.fields,field_description:POS_poplapay.field_pos_order__transaction_data
+msgid "Transaction Data"
+msgstr ""
+
+#. module: POS_poplapay
+#: model:ir.model.fields,field_description:POS_poplapay.field_pos_order__transaction_id
+msgid "Transaction ID"
+msgstr ""
+
+#. module: POS_poplapay
+#. openerp-web
+#: code:addons/POS_poplapay/static/src/xml/custome_button.xml:10
+#, python-format
+msgid "Transaction ID:"
+msgstr ""
+
+#. module: POS_poplapay
+#. openerp-web
+#: code:addons/POS_poplapay/static/src/xml/custome_button.xml:34
+#, python-format
+msgid "Transaction time:"
+msgstr ""
+
+#. module: POS_poplapay
+#: model:ir.model.fields,field_description:POS_poplapay.field_pos_config__url_name
+#: model_terms:ir.ui.view,arch_db:POS_poplapay.res_config_settings_view_form_1
+msgid "URL"
+msgstr ""
+
+#. module: POS_poplapay
+#: model:ir.model.fields,field_description:POS_poplapay.field_pos_config__username
+#: model_terms:ir.ui.view,arch_db:POS_poplapay.res_config_settings_view_form_1
+msgid "Username"
+msgstr "Käyttäjänimi"
+
+#. module: POS_poplapay
+#: model_terms:ir.ui.view,arch_db:POS_poplapay.res_config_settings_view_form_1
+msgid "Whenever you close a session, one entry is generated in the following accounting journal for all the orders not invoiced. Invoices are recorded in accounting separately."
+msgstr "Aina kun suljet istunnon, seuraavassa kirjanpitopäiväkirjassa luodaan yksi merkintä kaikille tilauksille, joita ei laskuteta. Laskut kirjataan kirjanpitoon erikseen."
+
+#. module: POS_poplapay
+#: model:ir.model.fields,field_description:POS_poplapay.field_pos_config__password
+msgid "password"
+msgstr "Salasana"
+
+#. module: POS_poplapay
+#. openerp-web
+#: code:addons/POS_poplapay/static/src/js/poplapay.js:173
+#: code:addons/POS_poplapay/static/src/js/poplapay.js:204
+#: code:addons/POS_poplapay/static/src/js/refund_payment.js:87
+#, python-format
+msgid "warning"
+msgstr "Varoitus"
+
+#. module: POS_poplapay
+#: model:ir.model,name:POS_poplapay.model_websocket_websocket
+msgid "websocket.websocket"
+msgstr ""

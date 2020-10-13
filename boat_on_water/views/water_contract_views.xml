@@ -1,0 +1,148 @@
+<odoo>
+
+    <!-- Water Contract Form View-->
+    <record id="water_contract_form_view" model="ir.ui.view">
+        <field name="name">water.contract.form</field>
+        <field name="model">water.contract</field>
+        <field name="arch" type="xml">
+            <form string="Water Contract">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed" />
+                    <button name="confirm_contract" type="object" string="Confirm" class="oe_highlight" states="draft"/>
+                    <button name="create_invoice" type="object" string="Create Invoice" class="oe_highlight" attrs="{'invisible':[('free_charge','=',True)]}"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button attrs="{'invisible':[('invoice_count','=',0)]}" name="action_view_invoices" type="object" class="oe_stat_button" icon="fa-pencil-square-o">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="invoice_count"/></span>
+                                <span class="o_stat_text">Invoices</span>
+                            </div>
+                        </button>
+                    </div>
+                    <label for="name"/>
+                    <h1><field name="name"/></h1>
+                    <group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="boat"/>
+                            <field name="price"/>
+                        </group>
+                        <group>
+                            <field name="delivery_date"/>
+                            <field name="free_charge"/>
+                        </group>
+                    </group>
+                     <h3>Location</h3>
+                    <group>
+                        <group>
+                            <field name="street" placeholder="street" class="o_address_street"/>
+                            <field name="city" placeholder="city" class="o_address_city"/>
+                        </group>
+                        <group>
+                            <field name="state_id" placeholder="state" class="o_address_state"/>
+                            <field name="country_id" placeholder="country" class="o_address_country"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="comment"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="water_contract_view_gantt" model="ir.ui.view">
+        <field name="name">water.contract.gantt</field>
+        <field name="model">water.contract</field>
+        <field name="arch" type="xml">
+        <gantt string="Water Contract"
+             date_start="delivery_date"
+             date_stop="delivery_date"
+             create="false"
+             edit="false"
+             decoration-info="state in ['draft']"
+
+             thumbnails="{'product_id': 'image_128', 'partner_id': 'image_128', 'user_id': 'image_128'}">
+             <templates>
+                 <div t-name="gantt-popover" class="container-fluid">
+                     <div class="row no-gutters">
+                         <div class="col">
+                             <ul class="pl-1 mb-0">
+                                 <li><strong>Contract #: </strong> <t t-esc="name"/></li>
+                                 <li><strong>Customer : </strong><t t-esc="partner_id[1]"/></li>
+                                 <li><strong>Start : </strong> <t t-esc="userTimezoneStartDate.format('YYYY-MM-DD hh:mm A')"/></li>
+                                 <li><strong>Stop : </strong> <t t-esc="userTimezoneStopDate.format('YYYY-MM-DD hh:mm A')"/></li>
+                                 <li><strong>Status : </strong> <t t-field="state"/>
+                                    <!-- t-field doesn't work, report_line_status isn't a field but a string -->
+<!--                                    <t t-if="late">-->
+<!--                                        Late-->
+<!--                                        <t t-if="report_line_status == 'reserved'">-->
+<!--                                            Pickup-->
+<!--                                        </t>-->
+<!--                                        <t t-elif="report_line_status == 'pickedup'">-->
+<!--                                            Return-->
+<!--                                        </t>-->
+<!--                                    </t>-->
+<!--                                    <t t-else="">-->
+<!--                                      <t t-if="report_line_status == 'pickedup'">-->
+<!--                                          Picked-Up-->
+<!--                                      </t>-->
+<!--                                      <t t-elif="report_line_status == 'returned'">-->
+<!--                                          Returned-->
+<!--                                      </t>-->
+<!--                                      <t t-else="">-->
+<!--                                          Reserved-->
+<!--                                      </t>-->
+<!--                                    </t>-->
+                                 </li>
+                             </ul>
+                         </div>
+                     </div>
+                 </div>
+             </templates>
+            <field name="name"/>
+            <field name="state"/>
+            <field name="partner_id"/>
+<!--            <field name="state"/>-->
+<!--            <field name="late"/>-->
+<!--            <field name="product_uom_qty"/>-->
+        </gantt>
+        </field>
+  </record>
+
+
+    <!-- Water Contract Tree View-->
+    <record id="water_contract_tree_view" model="ir.ui.view">
+        <field name="name">water.contract.tree</field>
+        <field name="model">water.contract</field>
+        <field name="arch" type="xml">
+            <tree string="Water Contract">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="boat"/>
+                <field name="delivery_date"/>
+                <field name="price"/>
+<!--                <field name="estimated_date"/>-->
+<!--                <field name="state"/>-->
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="water_contract_action" model="ir.actions.act_window">
+        <field name="name">Water Contract</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">water.contract</field>
+        <field name="view_mode">tree,form,gantt</field>
+        <field name="view_id" ref="boat_on_water.water_contract_tree_view"/>
+    </record>
+
+     <menuitem
+            id="water_contract_root"
+            name="Water Contract"
+            sequence="5"
+            action="boat_on_water.water_contract_action"
+     />
+
+</odoo>

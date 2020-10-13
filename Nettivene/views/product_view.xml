@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_product_template_inherit_form" model="ir.ui.view">
+        <field name="name">Product Template inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <field name="barcode" position="after">
+                <field name="model_id" attrs="{'invisible':[('is_boat','=',False)]}"/>
+<!--                <field name="order_id" attrs="{'invisible':[('is_boat','=',False)]}" readonly="True"/>-->
+            </field>
+            <div name="button_box" position="after">
+                <widget name="web_ribbon" text="Posted" bg_color="bg-success" attrs="{'invisible': [('nettix_id', '=', False)]}"/>
+            </div>
+            <xpath expr="/form/sheet/div/div[@name='options']" position="inside">
+                <div>
+                    <field name="is_boat"/>
+                    <label for="is_boat"/>
+                    <field name="is_equipment"/>
+                    <label for="is_equipment"/>
+                </div>
+            </xpath>
+            <xpath expr="//div[@name='standard_price_uom']" position="after">
+                <field name="actual_sale_price" attrs="{'invisible':[('boat_status','!=','sold')]}" readonly="True"/>
+                <field name="margin"/>
+            </xpath>
+            <div name="button_box" position="inside">
+                <button class="oe_stat_button" name="post_nettivene" type="object" icon="fa-check-square" attrs="{'invisible': [('is_boat', '=', False)]}">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_text" attrs="{'invisible':['!',('nettix_id','=',False)]}">Post Ad</span>
+                        <span class="o_stat_text" attrs="{'invisible':[('nettix_id','=',False)]}">Edit Ad</span>
+                    </div>
+                </button>
+            </div>
+            <!--  Add Nettix Info page in product.template model-->
+            <xpath expr="//page[last()]" position="after">
+                <page string="Boat Info" name="boat_info" attrs="{'invisible': [('is_boat','!=', True)]}">
+                    <group>
+                        <group>
+                            <field name="nettix_id"/>
+                            <field name="ad_url" widget="url"/>
+                        </group>
+                        <group>
+<!--                            <field name="nettix_location_id"/>-->
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="boat_status"/>
+                            <field name="user_id" domain="[('nettix_id','!=','')]" options="{'no_create': True,'no_create_edit':True}"/>
+                            <field name="sub_type_id" options="{'no_create': True,'no_create_edit':True}"/>
+                            <field name="body_material_id" options="{'no_create': True,'no_create_edit':True}"/>
+                            <field name="country_option_id" options="{'no_create': True,'no_create_edit':True}" />
+                            <field name="town_option_id" options="{'no_create': True,'no_create_edit':True}" />
+                            <field name="availability_id" options="{'no_create': True,'no_create_edit':True}"/>
+                        </group>
+                        <group>
+                            <field name="ad_type" />
+                            <field name="boat_type_id" options="{'no_create': True,'no_create_edit':True}" />
+                            <field name="boat_make_id" options="{'no_create': True,'no_create_edit':True}" />
+                            <field name="sail_steering_id" options="{'no_create': True,'no_create_edit':True}"/>
+                            <field name="region_option_id" options="{'no_create': True,'no_create_edit':True}"/>
+                            <field name="accessory_option_id" widget="many2many_tags" options="{'no_create': True,'no_create_edit':True}"/>
+                        </group>
+                    </group>
+                    <group string="Sail Information">
+                            <field name="boat_sails"/>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="has_engine"/>
+                            <field name="engine_make_id" options="{'no_create': True,'no_create_edit':True}"/>
+                            <field name="engine_type_id" options="{'no_create': True,'no_create_edit':True}"/>
+                            <field name="engine_rig_id" options="{'no_create': True,'no_create_edit':True}"/>
+                            <field name="engine_model"/>
+                            <field name="engine_mfg_year"/>
+                            <field name="engine_description"/>
+                            <field name="heat_fuel_type_id" options="{'no_create': True,'no_create_edit':True}"/>
+                            <field name="heat_model_specification"/>
+                            <field name="heat_description"/>
+                            <field name="boat_length"/>
+                            <field name="boat_width"/>
+                            <field name="boat_draft"/>
+                            <field name="year"/>
+                            <field name="year_model_to" />
+                            <field name="price" />
+                            <field name="is_priced"/>
+                            <field name="color"/>
+                            <field name="total_owners"/>
+                            <field name="show_posting_date"/>
+                            <field name="street_address" attrs="{'required':[('show_exact_location','=',True)]}"/>
+                            <field name="nett_price"/>
+                            <field name="delivery_cost" />
+                            <field name="warranty_km"/>
+                            <field name="video"/>
+
+<!--                            <field name="is_show_calendar"/>-->
+<!--                            <field name="show_bos_status"/>-->
+                        </group>
+                        <group>
+                            <field name="sail_description"/>
+                            <field name="two_engine"/>
+                            <field name="engine_power"/>
+                            <field name="engine_stroke_id" options="{'no_create': True,'no_create_edit':True}" />
+                            <field name="engine_fuel_type_id" options="{'no_create': True,'no_create_edit':True}" />
+                            <field name="cooling_type_id" options="{'no_create': True,'no_create_edit':True}"/>
+                            <field name="engine_model_specification"/>
+                            <field name="engine_hours"/>
+                            <field name="heat_make_id" options="{'no_create': True,'no_create_edit':True}"/>
+                            <field name="heat_model"/>
+                            <field name="heat_mfg_year"/>
+                            <field name="boat_model" attrs="{'required':[('is_boat','=',True)]}"/>
+                            <field name="boat_height"/>
+                            <field name="boat_weight"/>
+                            <field name="no_of_beds"/>
+                            <field name="year_model_from" />
+                            <field name="unused"/>
+                            <field name="price_per_day"/>
+                            <field name="register_number"/>
+                            <field name="storage_equip"/>
+                            <field name="description"/>
+                            <field name="show_exact_location"/>
+                            <field name="show_price_history"/>
+                            <field name="nett_price_note"/>
+                            <field name="warranty_month"/>
+                            <field name="warranty_date"/>
+<!--                            <field name="labels" widget="many2many_tags"/>-->
+<!--                            <field name="has_active_bos"/>-->
+                            <field name="people_id" domain="[('nettix_id','!=','')]" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="sold_info"/>
+                        <field name="sold_date" attrs="{'invisible':[('sold_info','!=',True)],'required': [('sold_info','=', True)]}"/>
+                        <field name="sold_price" attrs="{'invisible':[('sold_info','!=',True)]}"/>
+                        <field name="sold_through_nettivene" attrs="{'invisible':[('sold_info','!=',True)],'required': [('sold_info','=', True)]}"/>
+                        <field name="sold_comment" attrs="{'invisible':[('sold_info','!=',True)]}"/>
+                        <field name="exchange_trade" attrs="{'invisible':[('sold_info','!=',True)],'required': [('sold_info','=', True)]}"/>
+                    </group>
+                </page>
+                <page string="Boat images" name="boat_images" attrs="{'invisible': [('is_boat','!=', True)]}">
+                    <group string="Add Boat Images">
+                        <field name="boat_image_ids" class="o_website_sale_image_list" context="{'default_name': name}" mode="kanban" options="{'create_text':'Add a Media'}" nolabel="1"/>
+                    </group>
+                </page>
+                <page string="Boat chain" name="boat_chain" attrs="{'invisible': [('is_boat','!=', True)]}">
+                    <group>
+                        <field name="tradein_boats" readonly="True">
+                            <tree>
+                                <field name="boat_id"/>
+<!--                                <field name="nettix_id"/>-->
+<!--                                <field name="boat_status"/>-->
+                                <field name="sales_price"/>
+                                <field name="cost"/>
+<!--                                <field name="real_cost"/>-->
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_tree_view_inherit" model="ir.ui.view">
+        <field name="name">Product Tree View Inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <field name="nettix_id"/>
+            </xpath>
+            <field name="default_code" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="qty_available" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="virtual_available" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <tree position="attributes">
+                <attribute name="decoration-danger"></attribute>
+                <attribute name="decoration-info"></attribute>
+                <attribute name="decoration-success">nettix_id != False</attribute>
+            </tree>
+        </field>
+    </record>
+
+    <record id="product_action_post_ad" model="ir.actions.server">
+        <field name="name">Post Ad</field>
+        <field name="model_id" ref="product.model_product_template"/>
+        <field name="binding_model_id" ref="product.model_product_template"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">records.post_nettivene()</field>
+    </record>
+
+    <record id="view_product_image_inherit_form" model="ir.ui.view">
+        <field name="name">Product Image inherit</field>
+        <field name="model">product.image</field>
+        <field name="inherit_id" ref="website_sale.view_product_image_form"/>
+        <field name="arch" type="xml">
+            <field name="video_url" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="video_url" position="after">
+                <field name="nettix_id" invisible="1"/>
+                <field name="boat_image_id" invisible="1"/>
+            </field>
+            <label for="video_url" position="replace"></label>
+        </field>
+    </record>
+
+</odoo>

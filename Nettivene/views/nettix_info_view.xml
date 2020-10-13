@@ -1,0 +1,575 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Boat Type Form View-->
+        <record id="boat_type_form_view" model="ir.ui.view">
+            <field name="name">boat.type.form</field>
+            <field name="model">boat.type</field>
+            <field name="arch" type="xml">
+                <form string="Boat Type">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="nettix_id"/>
+                                <field name="fi"/>
+                            </group>
+                            <group>
+                                <field name="en"/>
+                                <field name="aliases"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--Sub Type Form View-->
+        <record id="sub_type_form_view" model="ir.ui.view">
+            <field name="name">sub.type.form</field>
+            <field name="model">sub.type</field>
+            <field name="arch" type="xml">
+                <form string="Sub Type">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="boat_type_id"/>
+                                <field name="nettix_id"/>
+                                <field name="fi"/>
+                            </group>
+                            <group>
+                                <field name="en"/>
+                                <field name="aliases"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Boat Make Form View -->
+        <record id="boat_makes_form_view" model="ir.ui.view">
+            <field name="name">boat.makeform</field>
+            <field name="model">boat.make</field>
+            <field name="arch" type="xml">
+                <form string="Boat Make">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="boat_type_id"/>
+                                <field name="nettix_id"/>
+                                <field name="name"/>
+                                <field name="mostPopular"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Body Material Form View-->
+        <record id="body_material_form_view" model="ir.ui.view">
+            <field name="name">body.material.form.view</field>
+            <field name="model">body.material</field>
+            <field name="arch" type="xml">
+                <form string="Body Material">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="nettix_id"/>
+                                <field name="fi"/>
+                            </group>
+                            <group>
+                                <field name="en"/>
+                                <field name="aliases"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Country Option Form View-->
+         <record id="country_option_form_view" model="ir.ui.view">
+            <field name="name">country.option.form.view</field>
+            <field name="model">country.option</field>
+            <field name="arch" type="xml">
+                <form string="Country Option">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="nettix_id"/>
+                                <field name="fi"/>
+                                <field name="country_id"/>
+                            </group>
+                            <group>
+                                <field name="en"/>
+                                <field name="aliases"/>
+                                <field name="iso_code"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+         <!-- Region options Form View-->
+         <record id="region_option_form_view" model="ir.ui.view">
+            <field name="name">region.form.view</field>
+            <field name="model">region.option</field>
+            <field name="arch" type="xml">
+                <form string="Region Option">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="nettix_id"/>
+                                <field name="fi"/>
+                                <field name="country_id"/>
+                            </group>
+                            <group>
+                                <field name="en"/>
+                                <field name="aliases"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+         <!-- Town options Form View-->
+         <record id="town_option_form_view" model="ir.ui.view">
+            <field name="name">town.form.view</field>
+            <field name="model">town.option</field>
+            <field name="arch" type="xml">
+                <form string="Town Option">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="nettix_id"/>
+                                <field name="fi"/>
+                            </group>
+                            <group>
+                                <field name="en"/>
+                                <field name="aliases"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Sail Type Form View-->
+         <record id="sail_type_form_view" model="ir.ui.view">
+            <field name="name">sail.type.form.view</field>
+            <field name="model">sail.type</field>
+            <field name="arch" type="xml">
+                <form string="Sail Type">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="nettix_id"/>
+                                <field name="fi"/>
+                            </group>
+                            <group>
+                                <field name="en"/>
+                                <field name="aliases"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+         <!-- Sail Make Form View-->
+         <record id="sail_type_form_view" model="ir.ui.view">
+            <field name="name">sail.make.form.view</field>
+            <field name="model">sail.make</field>
+            <field name="arch" type="xml">
+                <form string="Sail Type">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="nettix_id"/>
+                            </group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Sail Material Form View-->
+         <record id="sail_material_form_view" model="ir.ui.view">
+            <field name="name">sail.material.form.view</field>
+            <field name="model">sail.material</field>
+            <field name="arch" type="xml">
+                <form string="Sail Material">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="nettix_id"/>
+                            </group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+         <!--Engine Type Form View-->
+         <record id="engine_type_form_view" model="ir.ui.view">
+            <field name="name">engine.type.form.view</field>
+            <field name="model">engine.type</field>
+            <field name="arch" type="xml">
+                <form string="Engine Type">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="nettix_id"/>
+                                <field name="fi"/>
+                            </group>
+                            <group>
+                                <field name="en"/>
+                                <field name="aliases"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+         <!--Engine Stroke Form View-->
+         <record id="engine_stroke_form_view" model="ir.ui.view">
+            <field name="name">engine.stroke.form.view</field>
+            <field name="model">engine.stroke</field>
+            <field name="arch" type="xml">
+                <form string="Engine Stroke">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="nettix_id"/>
+                                <field name="fi"/>
+                            </group>
+                            <group>
+                                <field name="en"/>
+                                <field name="aliases"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+         <!--Engine Rig Form View-->
+         <record id="engine_rig_form_view" model="ir.ui.view">
+            <field name="name">engine.rig.form.view</field>
+            <field name="model">engine.rig</field>
+            <field name="arch" type="xml">
+                <form string="Engine Rig">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="nettix_id"/>
+                                <field name="fi"/>
+                            </group>
+                            <group>
+                                <field name="en"/>
+                                <field name="aliases"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--Engine Fuel Type Form View-->
+         <record id="engine_fuel_type_form_view" model="ir.ui.view">
+            <field name="name">engine.fuel.type.form.view</field>
+            <field name="model">engine.fuel.type</field>
+            <field name="arch" type="xml">
+                <form string="Engine Fuel Type">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="nettix_id"/>
+                                <field name="fi"/>
+                            </group>
+                            <group>
+                                <field name="en"/>
+                                <field name="aliases"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+         <!--Engine Power Form View-->
+         <record id="engine_fuel_type_form_view" model="ir.ui.view">
+            <field name="name">engine.power.form.view</field>
+            <field name="model">engine.power</field>
+            <field name="arch" type="xml">
+                <form string="Engine Power">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="nettix_id"/>
+                            </group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+         <!--Cooling Type Form View-->
+         <record id="cooling_type_form_view" model="ir.ui.view">
+            <field name="name">cooling.type.form.view</field>
+            <field name="model">cooling.type</field>
+            <field name="arch" type="xml">
+                <form string="Cooling Type">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="nettix_id"/>
+                                <field name="fi"/>
+                            </group>
+                            <group>
+                                <field name="en"/>
+                                <field name="aliases"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+         <!--Heating Make Form View-->
+         <record id="heating_make_form_view" model="ir.ui.view">
+            <field name="name">heating_make.form.view</field>
+            <field name="model">heating.make</field>
+            <field name="arch" type="xml">
+                <form string="Heating Make">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="nettix_id"/>
+                            </group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--Heating Fuel Type Form View-->
+         <record id="heating_fuel_type_form_view" model="ir.ui.view">
+            <field name="name">heating.fuel.type.form.view</field>
+            <field name="model">heating.fuel.type</field>
+            <field name="arch" type="xml">
+                <form string="Heating FuelType">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="nettix_id"/>
+                                <field name="fi"/>
+                            </group>
+                            <group>
+                                <field name="en"/>
+                                <field name="aliases"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+         <!--Accessory Options Form View-->
+         <record id="accessory_form_view" model="ir.ui.view">
+            <field name="name">accessory.form.view</field>
+            <field name="model">accessory.option</field>
+            <field name="arch" type="xml">
+                <form string="Accessory">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="nettix_id"/>
+                                <field name="fi"/>
+                            </group>
+                            <group>
+                                <field name="en"/>
+                                <field name="aliases"/>
+                                <field name="info"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--Availability Options Form View-->
+         <record id="availability_form_view" model="ir.ui.view">
+            <field name="name">availability.form.view</field>
+            <field name="model">availability.option</field>
+            <field name="arch" type="xml">
+                <form string="Availability">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="code"/>
+                                <field name="fi"/>
+                            </group>
+                            <group>
+                                <field name="en"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+         <!--Category Options Form View-->
+         <record id="category_form_view" model="ir.ui.view">
+            <field name="name">category.form.view</field>
+            <field name="model">category.option</field>
+            <field name="arch" type="xml">
+                <form string="Category">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="nettix_id"/>
+                                <field name="fi"/>
+                            </group>
+                            <group>
+                                <field name="en"/>
+                                <field name="aliases"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--Sail Steering Form View-->
+         <record id="sail_sterring_form_view" model="ir.ui.view">
+            <field name="name">sail.steering.form.view</field>
+            <field name="model">sail.steering</field>
+            <field name="arch" type="xml">
+                <form string="Sail Steering">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="nettix_id"/>
+                                <field name="fi"/>
+                            </group>
+                            <group>
+                                <field name="en"/>
+                                <field name="aliases"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--Tag Option Form View-->
+         <record id="tag_option_form_view" model="ir.ui.view">
+            <field name="name">tag.option.form.view</field>
+            <field name="model">tag.option</field>
+            <field name="arch" type="xml">
+                <form string="Tag Option">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="nettix_id"/>
+                                <field name="fi"/>
+                                <field name="en"/>
+                            </group>
+                            <group>
+                                <field name="descriptionFi"/>
+                                <field name="descriptionEn"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!--Boat Image Form View-->
+         <record id="boat_image_form_view" model="ir.ui.view">
+            <field name="name">boat.image.form.view</field>
+            <field name="model">boat.image</field>
+            <field name="arch" type="xml">
+                <form string="Boat Image">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="binary_value"/>
+                                <field name="product_id"/>
+                                <field name="image_id"/>
+                                <field name="nettix_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!--Boat Label Form View-->
+         <record id="boat_label_form_view" model="ir.ui.view">
+            <field name="name">boat.label.form.view</field>
+            <field name="model">boat.label</field>
+            <field name="arch" type="xml">
+                <form string="Boat Label">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!--Boat Sail Form View-->
+         <record id="boat_sail_form_view" model="ir.ui.view">
+            <field name="name">boat.sail.form.view</field>
+            <field name="model">boat.sail</field>
+            <field name="arch" type="xml">
+                <form string="Boat Sail">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="sail_type_id" options="{'no_create': True,'no_create_edit':True}"/>
+                                <field name="sail_material_id" options="{'no_create': True,'no_create_edit':True}"/>
+                                <field name="product_tmpl_id"/>
+                                <field name="sail_make_id" options="{'no_create': True,'no_create_edit':True}"/>
+                                <field name="sail_mfg_year"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!--Boat Sail Tree View-->
+         <record id="boat_sail_tree_view" model="ir.ui.view">
+            <field name="name">boat.sail.tree.view</field>
+            <field name="model">boat.sail</field>
+            <field name="arch" type="xml">
+                <tree editable="top">
+                    <field name="sail_type_id" options="{'no_create': True,'no_create_edit':True}"/>
+                    <field name="sail_material_id" options="{'no_create': True,'no_create_edit':True}"/>
+                    <field name="sail_make_id" options="{'no_create': True,'no_create_edit':True}"/>
+                    <field name="sail_mfg_year"/>
+                </tree>
+            </field>
+        </record>
+    </data>
+
+</odoo>

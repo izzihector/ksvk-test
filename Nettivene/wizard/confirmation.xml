@@ -1,0 +1,29 @@
+<odoo>
+    <data>
+        <record id="confirmation_wizard" model="ir.ui.view">
+			<field name="name">confirmation.form</field>
+			<field name="model">confirmation.message</field>
+			<field name="arch" type="xml">
+				<form>
+					<group>
+						<span>Successfully updated.</span>
+					</group>
+					<footer>
+						<button name="confirm_button" string="Confirm" type="object" class="oe_highlight"/>
+					</footer>
+				</form>
+			</field>
+		</record>
+
+        <record id="action_confirmation_wizard" model="ir.actions.act_window">
+			<field name="name">confirmation.message</field>
+			<field name="res_model">confirmation.message</field>
+<!--			<field name="view_type">form</field>-->
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+			<field name="view_id" ref="confirmation_wizard"/>
+		</record>
+
+
+    </data>
+</odoo>

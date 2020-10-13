@@ -1,0 +1,35 @@
+<odoo>
+    <record id="tradein_boat_form_view" model="ir.ui.view">
+            <field name="name">tradein.boat.type.form</field>
+            <field name="model">product.tradein</field>
+            <field name="arch" type="xml">
+                <form string="Trade-in Product">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="cost"/>
+                                <field name="year"/>
+                                <field name="model"/>
+                            </group>
+                            <group>
+                                <field name="engine_make_id"/>
+                                <field name="engine_mfg_year"/>
+                                <field name="engine_hours"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    <record id="margin_lines_search_view" model="ir.ui.view" >
+        <field name="name">margin.lines.search.view</field>
+        <field name="model">margin.lines</field>
+        <field name="arch" type="xml">
+          <search>
+              <field name="root"/>
+<!--              <field name="warehouse_id"/>-->
+          </search>
+        </field>
+    </record>
+</odoo>

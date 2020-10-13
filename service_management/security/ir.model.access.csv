@@ -1,0 +1,5 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_service_order,access_service_order,model_service_order,,1,1,1,1
+access_service_order_lines,access_service_order_lines,model_service_order_line,,1,1,1,1
+access_service_operations,access_service_operations,model_service_operations,,1,1,1,1
+access_service_report,access_service_report,model_service_report,,1,1,1,1

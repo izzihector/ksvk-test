@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="res_config_settings_view_netviene_form_inherit" model="ir.ui.view">
+            <field name="name">res.config.settings.view.netivene.form.inherit.base.setup</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <!-- Inherit res.config.settings and add Nettivene api configuration and add two fields token and url-->
+                <xpath expr="//div[@data-key='general_settings']/div[@id='invite_users']" position="inside">
+                    <h2>Nettivene Api</h2>
+                    <div class="row mt16 o_settings_container" id="netivene_api">
+                        <div class="col-12 col-lg-6 o_setting_box" id="token_id">
+                            <div class="o_setting_right_pane">
+                                <div class ="content-group">
+                                    <label for="nettix_location_id" string="Nettix Location: "/>
+                                    <field name="nettix_location_id"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+</odoo>

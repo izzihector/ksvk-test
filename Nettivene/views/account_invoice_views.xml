@@ -1,0 +1,27 @@
+<odoo>
+    <record id="view_account_invoice_inherit_form" model="ir.ui.view">
+        <field name="name">Account Invoice inherit</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@id='invoice_tab']" position="after">
+                <page string="Trade-In Lines" name="trade_in_lines">
+                    <field name="trade_in_lines">
+                        <tree editable="top">
+                            <field name="boat_id" required="True" />
+                            <field name="product_ref_id" invisible="1"/>
+                            <field name="cost" readonly="False"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+            <field name="amount_untaxed" position="after">
+                <label for="trade_in_amount" style="padding-right:10px;" string="Trade-in Amount"/>
+                <div style="text-align:right;">
+                    <b> - </b><field style="width:auto;" widget="monetary" name="trade_in_amount" nolabel="1"/>
+                </div>
+
+            </field>
+        </field>
+    </record>
+</odoo>

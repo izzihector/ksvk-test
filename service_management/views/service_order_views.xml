@@ -1,0 +1,271 @@
+<odoo>
+
+    <!-- Boat Model Form View-->
+    <record id="service_order_form_view" model="ir.ui.view">
+        <field name="name">service.order.form</field>
+        <field name="model">service.order</field>
+        <field name="arch" type="xml">
+            <form string="Service Order">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="quotation,wait,ongoing,done"/>
+                    <button name="confirm_service" type="object" states="quotation" string="Confirm Service"
+                            class="oe_highlight"/>
+                    <button name="start_service" type="object" states="wait" string="Start Service"
+                            class="oe_highlight"/>
+                    <button name="end_service" type="object" states="ongoing" string="End Service"
+                            class="oe_highlight"/>
+                    <button name="action_send_mail" type="object" states="quotation" string="Send Quotation"/>
+                    <button name="print_service_order" type="object" states="quotation" string="Print Quotation"/>
+                    <button name="confirm_parts" type="object"  string="Confirm Parts"
+                            class="oe_highlight" attrs="{'invisible':['|','!',('picking_id','=',False),'!',('state','=','done')]}"/>
+                    <button name="create_invoice" type="object" string="Create Invoice"
+                            class="oe_highlight" attrs="{'invisible':['|','!',('invoice_id','=',False),'!',('state','=','done')]}"/>
+                    <button name="cancel_service" class="" type="object" string="Cancel Service"/>
+                    <button name="set_quotation_service" class="" type="object" states="cancel"
+                            string="Set to Quotation"/>
+                    <button name="%(service_management.sms_message_action_form)d" type="action" string="Send SMS"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button attrs="{'invisible':[('invoice_id','=',False)]}" name="action_created_invoice"
+                                type="object" class="oe_stat_button" icon="fa-pencil-square-o"
+                                groups="account.group_account_invoice">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">1</span>
+                                <span class="o_stat_text">Invoices</span>
+                            </div>
+                        </button>
+                        <button attrs="{'invisible':[('picking_id','=',False)]}" name="show_picking"
+                                type="object" class="oe_stat_button" icon="fa-pencil-square-o">
+                            <div class="o_field_widget o_stat_info">
+<!--                                <span class="o_stat_text">1</span>-->
+                                <span class="o_stat_text">Picking</span>
+                            </div>
+                        </button>
+                    </div>
+                    <label for="name"/>
+                    <h1>
+                        <field name="name"/>
+                    </h1>
+                    <group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="invoice_id" invisible="1"/>
+                            <field name="picking_id" invisible="1"/>
+                            <field name="contract_id" invisible="1"/>
+                            <field name="address_id"/>
+                            <field name="responsible"/>
+                            <field name="fiscal_position_id"/>
+                            <field name="serviced" readonly="1"/>
+                            <field name="invoiced" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="serviceman"/>
+                            <field name="estimated_date"/>
+                            <field name="planned_date"/>
+                            <field name="warranty"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+
+                    </group>
+                    <notebook>
+                        <page string="Parts">
+                            <field name="service_lines">
+                                <tree editable="top">
+                                    <field name="product_id"/>
+                                    <field name="name"/>
+                                    <field name="product_uom_qty"/>
+                                    <field name="price_unit"/>
+                                    <field name="tax_id" widget="many2many_tags"/>
+                                    <field name="price_subtotal"/>
+                                </tree>
+                            </field>
+                            <group class="oe_subtotal_footer oe_right">
+                                <field name="amount_untaxed" sum="Untaxed amount"/>
+                                <field name="amount_tax"/>
+                                <div class="oe_subtotal_footer_separator oe_inline">
+                                    <label for="amount_total"/>
+                                </div>
+                                <field name="amount_total" nolabel="1" sum="Total amount"
+                                       class="oe_subtotal_footer_separator"/>
+                            </group>
+                        </page>
+                        <page string="Operations">
+                            <field name="service_operations">
+                                <tree editable="top">
+                                    <field name="product_id"/>
+                                    <field name="name"/>
+                                    <field name="product_uom_qty"/>
+                                    <field name="price_unit"/>
+                                    <field name="tax_id" widget="many2many_tags"/>
+                                    <field name="price_subtotal"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                     <field name="message_follower_ids" widget="mail_followers"/>
+                     <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Boat Model Tree View-->
+    <record id="service_order_tree_view" model="ir.ui.view">
+        <field name="name">service.order.tree</field>
+        <field name="model">service.order</field>
+        <field name="arch" type="xml">
+            <tree string="Service Order">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="serviceman"/>
+                <field name="date_stop" invisible="1"/>
+                <field name="estimated_date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="service_order_view_calendar" model="ir.ui.view">
+        <field name="name">service.order.calendar</field>
+        <field name="model">service.order</field>
+        <field name="arch" type="xml">
+            <calendar string="Service Order"
+                      date_start="planned_date"
+                      event_open_popup="true"
+                      mode="month"
+                      color="partner_id"
+                      quick_add="False">
+                <field name="partner_id"/>
+                <field name="planned_date"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record id="view_service_kanban" model="ir.ui.view">
+        <field name="name">service.kanban</field>
+        <field name="model">service.order</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="address_id"/>
+                <field name="serviceman"/>
+                <field name="state"/>
+                <field name="estimated_date"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                            <div class="row mb4">
+                                <div class="col-6">
+                                    <strong>
+                                        <span>
+                                            <t t-esc="record.name.value"/>
+                                        </span>
+                                    </strong>
+                                </div>
+                                <div class="col-6 text-right">
+                                    <field name="state" widget="label_selection"
+                                           options="{'classes': {'quotation': 'info', 'cancel': 'danger','done': 'success', 'wait': 'secondary', 'ongoing':'secondary'}}"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <span>
+                                        <t t-if="record.serviceman.value">
+                                            <b>
+                                                <t t-esc="record.serviceman.value"/>
+                                            </b>
+                                        </t>
+                                    </span>
+                                </div>
+                                <div class="col-6">
+                                    <span class="float-right">
+                                        <field name="partner_id"/>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <field name="estimated_date"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="service_order_view_gantt" model="ir.ui.view">
+        <field name="name">service.order.gantt</field>
+        <field name="model">service.order</field>
+        <field name="arch" type="xml">
+            <gantt string="Service Orders"
+                 date_start="estimated_date"
+                 date_stop="planned_date"
+                 default_group_by="serviceman"
+                 create="false"
+                 edit="false"
+                 decoration-info="state in ['draft']">
+    <!--             thumbnails="{'product_id': 'image_128', 'partner_id': 'image_128', 'user_id': 'image_128'}"-->
+
+                 <templates>
+                     <div t-name="gantt-popover" class="container-fluid">
+                         <div class="row no-gutters">
+                             <div class="col">
+                                 <ul class="pl-1 mb-0">
+                                     <li><strong>Service Order #: </strong> <t t-esc="name"/></li>
+                                     <li><strong>Customer : </strong><t t-esc="partner_id[1]"/></li>
+                                     <li><strong>Start : </strong> <t t-esc="userTimezoneStartDate.format('YYYY-MM-DD hh:mm A')"/></li>
+                                     <li><strong>Stop : </strong> <t t-esc="userTimezoneStopDate.format('YYYY-MM-DD hh:mm A')"/></li>
+                                     <li><strong>Status : </strong> <t t-field="state"/>
+                                     </li>
+                                 </ul>
+                             </div>
+                         </div>
+                     </div>
+                 </templates>
+                <field name="name"/>
+                <field name="state"/>
+                <field name="partner_id"/>
+            </gantt>
+        </field>
+  </record>
+
+    <record id="service_order_action" model="ir.actions.act_window">
+        <field name="name">Service Order</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">service.order</field>
+        <field name="view_mode">calendar,tree,form,kanban,gantt</field>
+        <field name="view_id" ref="service_management.service_order_tree_view"/>
+    </record>
+
+    <menuitem
+            id="service_order_root"
+            name="Services"
+            sequence="6"
+            action="service_order_action"
+    />
+    <menuitem
+            id="service_order_view"
+            name="Service Orders"
+            sequence="1"
+            parent="service_order_root"
+     />
+     <menuitem
+            id="service_order_menu"
+            name="Service Orders"
+            sequence="1"
+            parent="service_order_view"
+            action="service_management.service_order_action"
+     />
+
+
+</odoo>

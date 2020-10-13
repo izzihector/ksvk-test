@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_res_partner_inherit_form" model="ir.ui.view">
+        <field name="name">Partner Form inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[last()]" position="after">
+                <page string="Nettix Info" name="nettix_info">
+                    <group>
+                        <group>
+                            <field name="nettix_id"/>
+                            <field name="username"/>
+                        </group>
+                        <group>
+                            <field name="ads_url"/>
+                            <field name="on_hold_ads_url"/>
+                            <field name="template_id"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="boat_make_id"/>
+                            <field name="boat_model"/>
+                            <field name="boat_length"/>
+                            <field name="boat_width"/>
+                            <field name="year"/>
+                        </group>
+                        <group>
+                            <field name="engine_model"/>
+                            <field name="engine_hours"/>
+                            <field name="engine_mfg_year"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="comment"/>
+                    </group>
+                </page>
+            </xpath>
+            <div name="button_box" position="inside">
+                <button class="oe_stat_button" type="object" name="sync_dealers" icon="fa-sync" string="Sync with Nettix">
+                </button>
+            </div>
+        </field>
+    </record>
+
+</odoo>

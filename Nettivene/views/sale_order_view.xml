@@ -1,0 +1,67 @@
+<odoo>
+    <record id="view_sale_order_inherit_form" model="ir.ui.view">
+        <field name="name">Sale Order inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <button name="action_quotation_send" position="after">
+                <button name="%(add_boat_wizard)d" type="action" string="Add Boat"/>
+                <button name="open_equipment_wizard" type="object" string="Add Equipment" />
+            </button>
+            <field name="payment_term_id" position="after">
+                <field name="margin_amount"/>
+                <label for="margin_percentage" />
+                <div>
+                    <field name="margin_percentage" class="oe_inline" readonly="1"/>
+                    <span class="o_form_label oe_inline" >%</span>
+                </div>
+                <field name="model_id" invisible="1"/>
+            </field>
+            <xpath expr="//page[@name='order_lines']" position="after">
+                <page string="Trade-In Lines" name="trade_in_lines">
+                    <field name="trade_in_lines">
+                        <tree editable="top">
+                            <field name="boat_id" required="True" />
+                            <field name="product_ref_id" invisible="1"/>
+                            <field name="cost" readonly="False"/>
+                        </tree>
+                    </field>
+                </page>
+                <page string="Chain Lines" name="chain_lines">
+                    <field name="chain_lines">
+                        <tree editable="top" create="false">
+                            <field name="boat_id"/>
+                            <field name="standard_price"/>
+                            <field name="actual_sale_price"/>
+                            <field name="margin"/>
+                            <field name="main_boat_id" invisible="1"/>
+                            <field name="root" invisible="1"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+            <field name="amount_untaxed" position="after">
+                <label for="trade_in_amount" style="padding-right:10px;" string="Trade-in Amount"/>
+                <div style="text-align:right;">
+                    <b> - </b><field style="width:auto;" widget="monetary" name="trade_in_amount" nolabel="1"/>
+                </div>
+
+            </field>
+        </field>
+    </record>
+    <record id="view_sale_margin_inherit_form" model="ir.ui.view">
+        <field name="name">Sale Margin inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale_margin.sale_margin_sale_order"/>
+        <field name="arch" type="xml">
+            <field name="margin" position="after">
+                <label for="default_margin_percentage" />
+                <div style="text-align:right;">
+                    <field name="default_margin_percentage" readonly="1" class="oe_inline"/>
+                    <span>%</span>
+                </div>
+            </field>
+        </field>
+    </record>
+
+</odoo>

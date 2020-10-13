@@ -1,0 +1,28 @@
+.button_popla_refund {
+    position: absolute;
+    top: 0px;
+    line-height: 32px;
+    padding: 3px 13px;
+    font-size: 20px;
+    background: rgb(230, 230, 230);
+    margin: 12px;
+    border-radius: 3px;
+    border: solid 1px rgb(209, 209, 209);
+    cursor: pointer;
+    transition: all 150ms linear;
+}
+
+.button_popla_refund.next {
+    right: 0px;
+    left: -34px;
+    top: 16px;
+    margin-right: 16px;
+}
+
+.button_popla_refund.highlight {
+    background: rgb(110,200,155);
+    color: white;
+    border: solid 1px rgb(110,200,155);
+    width: auto;
+    height: unset;
+}

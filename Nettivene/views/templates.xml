@@ -1,0 +1,55 @@
+<odoo>
+    <template id="report_invoice_document_nettix" inherit_id="account.report_invoice_document">
+        <xpath expr="//table[@name='invoice_line_table']" position="after">
+            <h4>Trade-in Lines</h4>
+            <table class="table table-sm o_main_table" name="tradein_line_table">
+                <thead>
+                    <tr>
+                        <!-- TODO: remove in master -->
+                        <t t-set="colspan" t-value="6"/>
+                        <th name="th_boat" class="text-left"><span>Boat</span></th>
+                        <th name="th_cost" class="text-right"><span>Cost</span></th>
+                    </tr>
+                </thead>
+                <tbody class="invoice_tbody">
+                    <t t-set="current_subtotal" t-value="0"/>
+
+                    <t t-foreach="o.trade_in_lines" t-as="line">
+
+                        <t t-set="current_subtotal" t-value="current_subtotal + line.cost" />
+
+                        <tr t-att-class="'bg-200 o_line_section' ">
+                            <t>
+                                <td name="account_invoice_line_name"><span t-field="line.boat_id.name"/></td>
+                                <td class="text-right">
+                                    <span t-field="line.cost"/>
+                                </td>
+                            </t>
+                        </tr>
+
+
+                    </t>
+                    <t>
+                        <tr class="is-subtotal text-right">
+                            <td colspan="99">
+                                <strong class="mr16">Total</strong>
+                                <span
+                                    t-esc="current_subtotal"
+                                    t-options='{"widget": "monetary", "display_currency": o.currency_id}'
+                                />
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+        </xpath>
+        <xpath expr="//div[@id='total']//table/tr" position="after">
+            <tr class="border-black o_tradein_total" style="">
+                <td><strong>Trade-in Lines</strong></td>
+                <td class="text-right">
+                    <span>-</span><span t-field="o.trade_in_amount" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                </td>
+            </tr>
+        </xpath>
+    </template>
+</odoo>

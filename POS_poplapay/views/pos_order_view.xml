@@ -1,0 +1,24 @@
+<odoo>
+  <data>
+
+    <record id="pos_order_websocket_inherit_1" model="ir.ui.view">
+        <field name="name">pos_order</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet/notebook" position="inside">
+              <page string="Poplapay Details" attrs="{'invisible': [('transaction_data', '=', False)]}">
+                <group>
+                  <field name="aviite" readonly='True' store='True'/>
+                  <field name="ala" readonly='True' store='True'/>
+                  <field name="t_print" readonly='True' store='True'/>
+                  <field name="transaction_data" store='True'/>
+                  <field name="refund_transaction_data" store='True'/>
+                </group>
+              </page>
+            </xpath>
+        </field>
+    </record>
+
+  </data>
+</odoo>

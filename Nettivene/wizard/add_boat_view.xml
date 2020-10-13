@@ -1,0 +1,43 @@
+<odoo>
+    <data>
+        <record id="add_boat_form" model="ir.ui.view">
+			<field name="name">add.boat.form</field>
+			<field name="model">add.boat.wizard</field>
+			<field name="arch" type="xml">
+				<form>
+                    <group>
+                        <group>
+                            <field name="make" options="{'no_create': True, 'no_create_edit':True}"/>
+                            <field name="year"/>
+                        </group>
+                        <group>
+                            <field name="model"/>
+                        </group>
+                    </group>
+					<group>
+						<field name="boat_model_id"/>
+					</group>
+					<group>
+						<field name="show_boats"/>
+					</group>
+					<button name="search_recs" type="object" string="Search"/>
+					<field name="records"/>
+					<footer>
+						<button name="confirm_button" string="Confirm" type="object" class="oe_highlight"/>
+					</footer>
+				</form>
+			</field>
+		</record>
+
+        <record id="add_boat_wizard" model="ir.actions.act_window">
+			<field name="name">Add Boats</field>
+			<field name="res_model">add.boat.wizard</field>
+<!--			<field name="view_type">form</field>-->
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+			<field name="view_id" ref="add_boat_form"/>
+		</record>
+
+
+    </data>
+</odoo>
