@@ -7,7 +7,7 @@
     "category": "Point of Sale",
     # "live_test_url": "http://apps.it-projects.info/shop/product/pos-invoice-pay?version=13.0",
     "images": ["images/pos_invoice_pay_main.png"],
-    "version": "13.0.1.2.6",
+    "version": "13.0.1.2.7",
     "application": False,
     "author": "IT-Projects LLC, Artyom Losev",
     "support": "pos@it-projects.info",
