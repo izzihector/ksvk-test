@@ -14,6 +14,19 @@ class AccountInvoice(models.Model):
             for line in self.trade_in_lines:
                 self.trade_in_amount += line.cost
 
+    def action_post(self):
+        res = super(AccountInvoice, self).action_post()
+        self.amount_total = self.amount_total - self.trade_in_amount
+        self.amount_residual = self.amount_residual - self.trade_in_amount
+        return res
+
+    def button_draft(self):
+        res = super(AccountInvoice, self).button_draftd()
+        self.amount_total = self.amount_total - self.trade_in_amount
+        self.amount_residual = self.amount_residual - self.trade_in_amount
+        return res
+
+
 
 class SaleAdvancePaymentInv(models.TransientModel):
     _inherit = "sale.advance.payment.inv"

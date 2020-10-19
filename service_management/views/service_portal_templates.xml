@@ -49,7 +49,7 @@
                 <thead>
                     <tr class="active">
                         <th>Service Order #</th>
-                        <th class="text-right">Estimated Date</th>
+                        <th class="text-right">Planned Date</th>
                         <th class="text-right">Warranty</th>
                         <th class="text-center"/>
                         <th class="text-right">Total</th>
@@ -58,7 +58,7 @@
                 <t t-foreach="services" t-as="service">
                     <tr>
                         <td><a t-att-href="service.get_portal_url()"><t t-esc="service.name"/></a></td>
-                        <td class="text-right"><span t-field="service.estimated_date"/></td>
+                        <td class="text-right"><span t-field="service.planned_date"/></td>
                         <td class="text-right"><span t-field="service.warranty"/></td>
                         <td class="text-center">
                             <span t-if="service.state == 'cancel'" class="badge badge-pill badge-secondary"><i class="fa fa-fw fa-remove"/> Cancelled</span>
@@ -135,10 +135,10 @@
             <div id="informations">
                 <div class="row" id="so_date">
                     <div class="mb-3 col-6">
-                      <t t-if="service_order.estimated_date">
-                        <strong>Estimated Date:</strong>
+                      <t t-if="service_order.planned_date">
+                        <strong>Planned Date:</strong>
                       </t>
-                      <span t-field="service_order.estimated_date" t-options='{"widget": "date"}'/>
+                      <span t-field="service_order.planned_date" t-options='{"widget": "date"}'/>
                     </div>
                     <div class="mb-3 col-6" t-if="service_order.warranty">
                         <strong>Warranty:</strong> <span t-field="service_order.warranty" t-options='{"widget": "date"}'/>

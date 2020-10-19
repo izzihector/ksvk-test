@@ -10,6 +10,14 @@ class SaleOrder(models.Model):
     margin_percentage = fields.Float('Margin Percentage', default=0)
     default_margin_percentage = fields.Float('Margin Percentage', compute='compute_def_percent', default=0)
     model_id = fields.Many2one('boat.model')
+    chain_lines_length = fields.Integer(compute='compute_chain_lines_length')
+
+    def compute_chain_lines_length(self):
+        for rec in self:
+            rec.chain_lines_length = 0
+            if rec.chain_lines:
+                rec.chain_lines_length = len(rec.chain_lines.ids)
+
 
     @api.onchange('margin')
     def compute_def_percent(self):

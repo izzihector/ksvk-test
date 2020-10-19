@@ -10,6 +10,7 @@
                     <field name="state" widget="statusbar" statusbar_visible="draft,confirmed" />
                     <button name="confirm_contract" type="object" string="Confirm" class="oe_highlight" states="draft"/>
                     <button name="create_invoice" type="object" string="Create Invoice" class="oe_highlight" attrs="{'invisible':[('free_charge','=',True)]}"/>
+                    <button name="%(service_management.sms_message_action_form)d" type="action" string="Send SMS"/>
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">

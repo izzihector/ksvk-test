@@ -19,20 +19,6 @@
                         </group>
                     </group>
                     <group>
-                        <group>
-                            <field name="boat_make_id"/>
-                            <field name="boat_model"/>
-                            <field name="boat_length"/>
-                            <field name="boat_width"/>
-                            <field name="year"/>
-                        </group>
-                        <group>
-                            <field name="engine_model"/>
-                            <field name="engine_hours"/>
-                            <field name="engine_mfg_year"/>
-                        </group>
-                    </group>
-                    <group>
                         <field name="comment"/>
                     </group>
                 </page>

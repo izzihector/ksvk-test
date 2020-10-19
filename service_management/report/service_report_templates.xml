@@ -33,10 +33,10 @@
                                 <span t-field="o.serviceman" class="m-0"/>
                             </div>
                         </t>
-                        <t t-if="o.estimated_date">
+                        <t t-if="o.planned_date">
                             <div class="col-6 bm-2">
-                                <strong>Estimated Date:</strong>
-                                <span t-field="o.estimated_date" t-options="{'widget': 'date'}" class="m-0"/>
+                                <strong>Planned Date:</strong>
+                                <span t-field="o.planned_date" t-options="{'widget': 'date'}" class="m-0"/>
                             </div>
                         </t>
                         <div class="col-6 bm-2">

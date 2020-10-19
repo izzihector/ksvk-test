@@ -4,6 +4,7 @@ from odoo.exceptions import UserError
 class WaterContract(models.Model):
     _name = 'water.contract'
     _description = 'Water Contract'
+    _inherit = 'mail.thread'
 
     name = fields.Char('Name', readonly=1)
     partner_id = fields.Many2one('res.partner','Partner')

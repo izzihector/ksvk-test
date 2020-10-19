@@ -16,6 +16,7 @@
                     <span class="o_form_label oe_inline" >%</span>
                 </div>
                 <field name="model_id" invisible="1"/>
+                <field name="chain_lines_length" invisible="1"/>
             </field>
             <xpath expr="//page[@name='order_lines']" position="after">
                 <page string="Trade-In Lines" name="trade_in_lines">
@@ -27,7 +28,7 @@
                         </tree>
                     </field>
                 </page>
-                <page string="Chain Lines" name="chain_lines">
+                <page string="Chain Lines" name="chain_lines" attrs="{'invisible':[('chain_lines_length','&lt;','2')]}">
                     <field name="chain_lines">
                         <tree editable="top" create="false">
                             <field name="boat_id"/>

@@ -71,7 +71,7 @@ class CustomerPortal(CustomerPortal):
         ]
 
         searchbar_sortings = {
-            'date': {'label': _('Estimated Date'), 'order': 'estimated_date desc'},
+            'date': {'label': _('Planned Date'), 'order': 'planned_date desc'},
             'name': {'label': _('Reference'), 'order': 'name'},
             'stage': {'label': _('State'), 'order': 'state'},
         }

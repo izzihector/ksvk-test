@@ -3,7 +3,7 @@
     'version': '13.0.1.0.0',
     'description': """
         """,
-    'depends': ['Nettivene','service_management','web_widget_google_maps'],
+    'depends': ['Nettivene','service_management'],
     'data': [
         'views/storage_contract_views.xml',
         'views/location_views.xml',

@@ -21,7 +21,8 @@ class ServiceOrder(models.Model):
     currency_id = fields.Many2one('res.currency',default=_default_currency_id)
     responsible = fields.Many2one('res.users', 'Responsible')
     warranty = fields.Date('Warranty Expiration')
-    estimated_date = fields.Datetime('Estimated Date')
+    estimated_hours = fields.Float('Estimated Hours')
+    completion_date = fields.Datetime('Completion Date',compute='compute_completion_date')
     planned_date = fields.Datetime('Planned Date')
     serviceman = fields.Many2one('res.users','Serviceman', readonly=1)
     address_id = fields.Char('Delivery Address',states={'confirmed': [('readonly', True)]})
@@ -48,6 +49,13 @@ class ServiceOrder(models.Model):
     def _get_report_base_filename(self):
         self.ensure_one()
         return '%s' % (self.name)
+
+    def compute_completion_date(self):
+        for rec in self:
+            if rec.planned_date and rec.estimated_hours:
+                rec.completion_date = rec.planned_date + timedelta(hours=rec.estimated_hours)
+            else:
+                rec.completion_date = rec.planned_date
 
     @api.model
     def create(self, vals):
@@ -114,8 +122,8 @@ class ServiceOrder(models.Model):
         if self.filtered(lambda service: service.state not in ['wait']):
             raise UserError(_("Service must be confirmed before starting."))
         # self.mapped('operations').write({'state': 'confirmed'})
-        if not self.estimated_date:
-            self.write({'estimated_date':datetime.now(), 'planned_date': datetime.now() + timedelta(hours=4)})
+        if not self.planned_date:
+            self.write({'planned_date': datetime.now()})
         return self.write({'state': 'ongoing','serviceman':self.env.uid,'date_start':datetime.today()})
 
     def end_service(self):
@@ -128,7 +136,7 @@ class ServiceOrder(models.Model):
         if self.filtered(lambda service: service.state != 'cancel'):
             raise UserError(_("Service must be canceled in order to reset it to quotation state."))
         # self.mapped('operations').write({'state': 'draft'})
-        return self.write({'state': 'quotation', 'serviceman':False, 'estimated_date':False})
+        return self.write({'state': 'quotation', 'serviceman':False, 'estimated_hours':False})
 
     def action_send_mail(self):
         self.ensure_one()

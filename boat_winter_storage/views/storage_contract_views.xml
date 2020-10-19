@@ -9,6 +9,7 @@
                 <header>
                     <button name="create_invoice" type="object" string="Create Invoice" class="oe_highlight"/>
                     <button name="create_service" type="object" string="Create Service Order" />
+                    <button name="%(service_management.sms_message_action_form)d" type="action" string="Send SMS"/>
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">

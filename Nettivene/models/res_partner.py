@@ -10,14 +10,6 @@ class ResPartner(models.Model):
     ads_url = fields.Char('Ads Url')
     on_hold_ads_url = fields.Char('On Hold Ads Url')
     template_id = fields.Many2one('mail.template', 'SO mail template')
-    boat_make_id = fields.Many2one('boat.make', 'Make')
-    boat_model = fields.Char('Model')
-    boat_length = fields.Float('Boat Length')
-    boat_width = fields.Float('Boat Width')
-    year = fields.Char('Year')
-    engine_model = fields.Char('Engine Model')
-    engine_hours = fields.Integer('Engine Hours')
-    engine_mfg_year = fields.Char('Engine Mfg Year')
     comment = fields.Html('Comment')
 
     def sync_dealers(self):
