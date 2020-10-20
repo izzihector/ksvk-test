@@ -31,6 +31,8 @@
                         </group>
                         <group>
                             <field name="delivery_date"/>
+                            <field name="estimated_hours" widget="float_time"/>
+                            <field name="completion_date"/>
                             <field name="free_charge"/>
                         </group>
                     </group>
@@ -59,7 +61,7 @@
         <field name="arch" type="xml">
         <gantt string="Water Contract"
              date_start="delivery_date"
-             date_stop="delivery_date"
+             date_stop="completion_date"
              create="false"
              edit="false"
              decoration-info="state in ['draft']"
@@ -110,7 +112,24 @@
 <!--            <field name="product_uom_qty"/>-->
         </gantt>
         </field>
-  </record>
+    </record>
+
+    <record id="water_contract_view_calendar" model="ir.ui.view">
+        <field name="name">water.contract.calendar</field>
+        <field name="model">water.contract</field>
+        <field name="arch" type="xml">
+            <calendar string="Water Contract"
+                      date_start="delivery_date"
+                      date_stop="completion_date"
+                      event_open_popup="true"
+                      color="partner_id"
+                      mode="month"
+                      quick_add="False">
+                <field name="partner_id"/>
+                <field name="delivery_date"/>
+            </calendar>
+        </field>
+    </record>
 
 
     <!-- Water Contract Tree View-->
@@ -135,7 +154,7 @@
         <field name="name">Water Contract</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">water.contract</field>
-        <field name="view_mode">tree,form,gantt</field>
+        <field name="view_mode">tree,form,gantt,calendar</field>
         <field name="view_id" ref="boat_on_water.water_contract_tree_view"/>
     </record>
 

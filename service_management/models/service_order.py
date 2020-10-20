@@ -11,11 +11,9 @@ class ServiceOrder(models.Model):
     def _default_currency_id(self):
         return self.env.user.company_id.currency_id.id
 
-    def _default_fiscal_position(self):
-        return self.env.user.default_service_fiscal_position_id.id or ''
 
     partner_id = fields.Many2one('res.partner','Customer',required=1)
-    name = fields.Char('Service Reference', readonly=True, required=True, default='New')
+    name = fields.Char('Service Reference', readonly=True, default='New')
     state = fields.Selection([('quotation','Quotation'),('wait','Waiting for Repair'),('ongoing','Ongoing'),('done','Done'),('cancel','Cancel')],
                              string='State', default='quotation')
     currency_id = fields.Many2one('res.currency',default=_default_currency_id)
@@ -24,7 +22,7 @@ class ServiceOrder(models.Model):
     estimated_hours = fields.Float('Estimated Hours')
     completion_date = fields.Datetime('Completion Date',compute='compute_completion_date')
     planned_date = fields.Datetime('Planned Date')
-    serviceman = fields.Many2one('res.users','Serviceman')
+    serviceman = fields.Many2one('res.users','Serviceman', readonly=1)
     address_id = fields.Char('Delivery Address',states={'confirmed': [('readonly', True)]})
     service_lines = fields.One2many('service.order.line','service_id',string='Service Order Lines')
     service_operations = fields.One2many('service.operations', 'service_id', string='Service Operations')
@@ -39,7 +37,7 @@ class ServiceOrder(models.Model):
     invoice_id = fields.Many2one('account.move', 'Invoice',copy=False, readonly=True, tracking=True,domain=[('type', '=', 'out_invoice')])
     contract_id = fields.Many2one('storage.contract')
     picking_id = fields.Many2one('stock.picking','Picking')
-    fiscal_position_id = fields.Many2one('account.fiscal.position', string='Fiscal Position', default=_default_fiscal_position)
+    fiscal_position_id = fields.Many2one('account.fiscal.position', string='Fiscal Position', compute='compute_fiscal_position')
 
     def _compute_access_url(self):
         super(ServiceOrder, self)._compute_access_url()
@@ -56,6 +54,14 @@ class ServiceOrder(models.Model):
                 rec.completion_date = rec.planned_date + timedelta(hours=rec.estimated_hours)
             else:
                 rec.completion_date = rec.planned_date
+
+    def compute_fiscal_position(self):
+        for rec in self:
+            if rec.serviceman and rec.serviceman.default_service_fiscal_position_id:
+                rec.fiscal_position_id = rec.serviceman.default_service_fiscal_position_id.id
+            else:
+                rec.fiscal_position_id = False
+
 
     @api.model
     def create(self, vals):
@@ -94,6 +100,12 @@ class ServiceOrder(models.Model):
         for order in self:
             order.amount_total = order.amount_untaxed + order.amount_tax
 
+    @api.onchange('completion_date')
+    def estimate_hours(self):
+        for rec in self:
+            if rec.completion_date:
+                rec.estimated_hours = (rec.completion_date - rec.planned_date) / timedelta(hours=1)
+
     def confirm_service(self):
         """ Repair order state is set to 'To be invoiced' when invoice method
         is 'Before repair' else state becomes 'Confirmed'.
@@ -107,7 +119,10 @@ class ServiceOrder(models.Model):
         # to_confirm = self - before_repair
         # to_confirm_operations = to_confirm.mapped('operations')
         # to_confirm_operations.write({'state': 'confirmed'})
-        self.write({'state': 'wait','responsible':self.env.uid})
+        vals = {'state': 'wait'}
+        if not self.responsible:
+            vals.update({'responsible': self.env.uid})
+        self.write(vals)
         return True
 
     def cancel_service(self):

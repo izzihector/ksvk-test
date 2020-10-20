@@ -1,5 +1,6 @@
 from odoo import api, fields, models,_
 from odoo.exceptions import UserError
+from datetime import timedelta
 
 class WaterContract(models.Model):
     _name = 'water.contract'
@@ -10,6 +11,8 @@ class WaterContract(models.Model):
     partner_id = fields.Many2one('res.partner','Partner')
     boat = fields.Char(string='Boat')
     price = fields.Float('Price')
+    estimated_hours = fields.Float('Estimated Hours')
+    completion_date = fields.Datetime('Completion Date', compute='compute_completion_date')
     delivery_date = fields.Datetime('Delivery Date')
     comment = fields.Html('Comment')
     street = fields.Char()
@@ -39,6 +42,19 @@ class WaterContract(models.Model):
                 rec.boat = rec.partner_id.boat_make_id.name + " " + rec.partner_id.boat_model
             else:
                 rec.boat = ''
+
+    def compute_completion_date(self):
+        for rec in self:
+            if rec.delivery_date and rec.estimated_hours:
+                rec.completion_date = rec.delivery_date + timedelta(hours=rec.estimated_hours)
+            else:
+                rec.completion_date = rec.delivery_date
+
+    @api.onchange('completion_date')
+    def estimate_hours(self):
+        for rec in self:
+            if rec.completion_date:
+                rec.estimated_hours = (rec.completion_date - rec.delivery_date) / timedelta(hours=1)
 
     def confirm_contract(self):
         self.write({'state':'confirmed'})

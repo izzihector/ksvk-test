@@ -49,6 +49,19 @@ class SendSMS(models.TransientModel):
             )
         return result
 
+    def default_body(self):
+        sms_text = ''
+        if self.env.context.get('active_model') == 'service.order':
+            sms_text = self.env['ir.config_parameter'].sudo().get_param(
+                'service_management.service_sms')
+        if self.env.context.get('active_model') == 'storage.contract':
+            sms_text = self.env['ir.config_parameter'].sudo().get_param(
+                'boat_winter_storage.winter_storage_sms')
+        if self.env.context.get('active_model') == 'water.contract':
+            sms_text = self.env['ir.config_parameter'].sudo().get_param(
+                'boat_on_water.water_contract_sms')
+        return sms_text
+
     # documents
     composition_mode = fields.Selection([
         ('numbers', 'Send to numbers'),
@@ -80,7 +93,7 @@ class SendSMS(models.TransientModel):
     sanitized_numbers = fields.Char('Sanitized Number', compute='_compute_sanitized_numbers', compute_sudo=False)
     # content
     template_id = fields.Many2one('sms.template', string='Use Template', domain="[('model', '=', res_model)]")
-    body = fields.Text('Message', required=True)
+    body = fields.Text('Message', required=True,default=default_body)
 
     @api.depends('res_model', 'res_ids', 'active_domain')
     def _compute_recipients_count(self):

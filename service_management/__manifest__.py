@@ -13,6 +13,7 @@
         'views/assets.xml',
         'views/res_users_views.xml',
         'views/res_partner_views.xml',
+        'views/res_config_settings_views.xml',
         'security/ir.model.access.csv',
         'data/service_data.xml',
         'report/sale_analysis_report.xml',

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="res_config_settings_view_winter_form_inherit" model="ir.ui.view">
+            <field name="name">res.config.settings.view.winter.form.inherit.base.setup</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="service_management.res_config_settings_view_service_form_inherit"/>
+            <field name="arch" type="xml">
+                <!-- Inherit res.config.settings and add Nettivene api configuration and add two fields token and url-->
+                <xpath expr="//div[@id='service_sms']" position="after">
+                    <div class="row mt16 o_settings_container" id="winter_storage_sms">
+                        <div class="col-12 col-lg-6 o_setting_box" id="token_id">
+                            <div class="o_setting_right_pane">
+                                <div class ="content-group">
+                                    <label for="winter_storage_sms" string="Default Winter Storage SMS Text: "/>
+                                    <field name="winter_storage_sms" class="textarea-sms"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </xpath>
+            </field>
+        </record>
+
+</odoo>

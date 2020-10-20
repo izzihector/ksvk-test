@@ -8,6 +8,7 @@
         'views/storage_contract_views.xml',
         'views/location_views.xml',
         'views/res_users_views.xml',
+        'views/res_config_settings_views.xml',
         'security/ir.model.access.csv',
         'data/storage_data.xml',
     ],
