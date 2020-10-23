@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    	
+<template id="sh_product_snippet_assets_frontend" inherit_id="website.assets_frontend" name="SH Product Snippet Front-end assets">
+    <xpath expr="." position="inside">
+    	
+        <link rel="stylesheet" type="text/css" href="/sh_product_snippet/static/src/css/snippet.scss"/>
+        <link rel="stylesheet" type="text/css" href="/sh_product_snippet/static/src/css/animate.css"/>
+        
+        <script type="text/javascript" src="/sh_product_snippet/static/src/js/render.js"/>
+        <script type="text/javascript" src="/sh_product_snippet/static/src/js/wow_min.js"/>        
+        
+    </xpath>
+</template>
+
+</odoo>

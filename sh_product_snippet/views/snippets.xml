@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+<!-- snippet 1 -->
+<template id="sh_product_snippet_tmpl_1" name="E-commerce Product List 1">
+	<section id="sh_product_snippet_section_1" class="sh_animation_part">    
+	  <div class="container oe_website_sale">
+            
+            <div class="sh_title">
+               <h2>Lorem Ipsum is simply</h2>
+               <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+            </div>
+            
+         	<div id="js_id_sh_product_snippet_div_row" class="row">
+         	
+      	
+         	
+
+         	</div>
+         	
+         	
+    <div id="sh_product_snippet_loader"> 
+    
+    </div>         	
+         	
+
+          
+	  </div>
+	</section>
+</template>
+
+
+
+
+<!-- snippet 2 -->
+<template id="sh_product_snippet_tmpl_2" name="E-commerce Product List 2">
+	<section id="sh_product_snippet_section_2" class="sh_animation_part">    
+	  <div class="container oe_website_sale">
+	  		<div class="sh_title">
+               <h2>Lorem Ipsum is simply</h2>
+               <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+            </div>
+
+         	<div id="js_id_sh_product_snippet_section_div_row_2" class="row">
+         	
+         	</div>
+         	
+         	
+    <div id="sh_product_snippet_loader"> 
+    
+    </div>         	
+         	
+
+          
+	  </div>
+	</section>
+</template>
+
+
+<!-- snippet 3 -->
+<template id="sh_product_snippet_tmpl_3" name="E-commerce Product List 3">
+	<section id="sh_product_snippet_section_3" class="sh_animation_part">    
+	  <div class="container oe_website_sale">
+	  		<div class="sh_title">
+               <h2>Lorem Ipsum is simply</h2>
+               <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+            </div>
+
+         	<div id="js_id_sh_product_snippet_section_div_row_3" class="row">      	
+    
+         	</div>
+         	
+         	
+    <div id="sh_product_snippet_loader"> 
+    
+    </div>         	
+         	
+
+          
+	  </div>
+	</section>
+</template>
+
+
+
+
+
+<template id="sh_product_snippet_website_snippet" inherit_id="website.snippets" name="E-commerce Product Listing">
+	<xpath expr="//div[@id='snippet_structure']" position="after">
+		<div id="snippet_grid" class="o_panel">
+			<div class="o_panel_header">
+				E-commerce Product
+			</div>
+			<div class="o_panel_body">
+			    <t t-snippet="sh_product_snippet.sh_product_snippet_tmpl_1"
+			       t-thumbnail="/sh_product_snippet/static/src/img/blocks/1.png"/> 	
+			       
+			    <t t-snippet="sh_product_snippet.sh_product_snippet_tmpl_2"
+			       t-thumbnail="/sh_product_snippet/static/src/img/blocks/2.png"/> 	
+			    
+			    <t t-snippet="sh_product_snippet.sh_product_snippet_tmpl_3"
+			       t-thumbnail="/sh_product_snippet/static/src/img/blocks/3.png"/> 
+			       			       
+			</div>
+		</div>
+	</xpath>
+</template>
+
+
+<!-- snippet options -->
+	<template id="sh_product_snippet_options" inherit_id="website.snippet_options" name="Product List Options">
+	    <xpath expr="//div" position="after">
+	    
+	    
+	    
+	        <div data-selector="#sh_product_snippet_section_1,#sh_product_snippet_section_2,#sh_product_snippet_section_3">
+	            
+	            
+	            
+	            
+		        <we-collapse-area>
+		            <we-toggler>Product Categories</we-toggler>
+		            <we-collapse>                
+		                	  
+
+		                <we-button data-select-class="">None</we-button>
+		                
+		                
+			<!-- <we-button data-select-class="sh_ecom_categ_allproducts_cend">All Products</we-button> -->
+                 				                       
+		                              
+            			<t t-set="sh_product_categories" t-value="request.env['product.public.category'].search([])" />
+	                    <t t-if="len(sh_product_categories)">
+       						
+       						<t t-foreach="sh_product_categories" t-as="sh_product_category">	                    
+       							                   		 	
+	                   		 	   <t t-set="sh_product_category_data_cls" t-value="'sh_ecom_categ_' + str(sh_product_category.id) + '_cend'"/>	            					                
+ 									 
+ 								  <we-button t-att-data-select-class="sh_product_category_data_cls">
+ 								  		<t t-esc="sh_product_category.name"/>
+ 								  </we-button>	                   		 	
+	                   		 	
+	                   		 	
+	                   		</t>
+	                   	</t>
+	                   			                                
+
+		                							
+		            </we-collapse>
+		        </we-collapse-area>	            
+	            
+	            
+	            
+	            
+	            
+	            
+	            
+	            	            
+
+				<!-- Shows   -->		
+		        <we-collapse-area>
+		            <we-toggler>Shows</we-toggler>
+		            <we-collapse>                                                
+		                <we-button data-toggle-class="is_show_add_to_cart">Add to Cart</we-button>
+		                <we-button data-toggle-class="is_show_product_desc">Product Description</we-button>
+		                <we-button data-toggle-class="is_show_wish_list">Wish List</we-button>
+		                <we-button data-toggle-class="is_show_sale_price">Sale Price</we-button>	
+		            </we-collapse>
+		        </we-collapse-area>				
+				
+
+		      		        
+
+	            
+	            <!-- Order By -->
+		        <we-collapse-area>
+		            <we-toggler>Order by</we-toggler>
+		            <we-collapse>                                                
+		                <we-button data-select-class="name_asc">Name asc</we-button>
+		                <we-button data-select-class="name_desc">Name desc</we-button>
+		                <we-button data-select-class="create_date_asc">Create Date asc</we-button>
+		                <we-button data-select-class="create_date_desc">Create Date desc</we-button>	
+		                <we-button data-select-class="sale_price_asc">Sale Price asc</we-button>	
+		                <we-button data-select-class="sale_price_desc">Sale Price desc</we-button>	
+		                <we-button data-select-class="">None</we-button>			                		                		                
+		            </we-collapse>
+		        </we-collapse-area>			            
+	            
+	            
+
+	            <!-- Filter by 
+	            
+		        <we-collapse-area>
+		            <we-toggler>Filter by</we-toggler>
+		            <we-collapse>                                                
+		                <we-button data-select-class="filter_top_selling_product_fend">Top Selling Products</we-button>
+		                <we-button data-select-class="filter_featured_product_fend">Featured Products</we-button>
+		                <we-button data-select-class="filter_alternative_product_fend">Alternative Products</we-button>
+		                <we-button data-select-class="filter_new_arrival_fend">New Arrival Products</we-button>	
+		                <we-button data-select-class="">None</we-button>			                		                		                
+		            </we-collapse>
+		        </we-collapse-area>			            
+	            
+	            	-->            
+	            
+	            <!-- Limit -->
+		        <we-collapse-area>
+		            <we-toggler>Limit</we-toggler>
+		            <we-collapse>                                                
+		                <we-button data-select-class="sh_limit_5_lend">5</we-button>
+		                <we-button data-select-class="sh_limit_10_lend">10</we-button>
+		                <we-button data-select-class="sh_limit_20_lend">20</we-button>
+		                <we-button data-select-class="sh_limit_30_lend">30</we-button>	
+		                <we-button data-select-class="sh_limit_40_lend">40</we-button>
+		                <we-button data-select-class="sh_limit_50_lend">50</we-button>
+		                <we-button data-select-class="sh_limit_60_lend">60</we-button>
+		                <we-button data-select-class="sh_limit_70_lend">70</we-button>	
+		                <we-button data-select-class="sh_limit_80_lend">80</we-button>
+		                <we-button data-select-class="sh_limit_90_lend">90</we-button>
+		                <we-button data-select-class="sh_limit_100_lend">100</we-button>		                		                		                
+		                <we-button data-select-class="">None</we-button>			                		                		                
+		            </we-collapse>
+		    </we-collapse-area>		
+		</div>		    
+	    
+	    
+			
+	<!-- ANIMATION TYPES |  -->
+    <div data-selector=".sh_animation_part">
+        <we-collapse-area>
+            <we-toggler>Animation</we-toggler>
+            <we-collapse>
+        
+        <we-button data-select-class="wow bounceIn">bounce</we-button>
+        <we-button data-select-class="wow bounceInDown">bounceInDown</we-button>
+        <we-button data-select-class="wow bounceInLeft">bounceInLeft</we-button>
+        <we-button data-select-class="wow bounceInRight">bounceInRight</we-button>
+        <we-button data-select-class="wow bounceInUp">bounceInUp</we-button>
+        
+        <we-button data-select-class="wow bounceOut">bounceOut</we-button>
+        <we-button data-select-class="wow bounceOutDown">bounceOutDown</we-button>
+        <we-button data-select-class="wow bounceOutLeft">bounceOutLeft</we-button>
+        <we-button data-select-class="wow bounceOutRight">bounceOutRight</we-button>
+        <we-button data-select-class="wow bounceOutUp">bounceOutUp</we-button>
+        
+        <we-button data-select-class="wow fadeIn">fadeIn</we-button>
+        <we-button data-select-class="wow fadeInDown">fadeInDown</we-button>
+        <we-button data-select-class="wow fadeInDownBig">fadeInDownBig</we-button>
+        <we-button data-select-class="wow fadeInLeft">fadeInLeft</we-button>
+        <we-button data-select-class="wow fadeInLeftBig">fadeInLeftBig</we-button>
+        <we-button data-select-class="wow fadeInRight">fadeInRight</we-button>
+        <we-button data-select-class="wow fadeInRightBig">fadeInRightBig</we-button>
+        <we-button data-select-class="wow fadeInUp">fadeInUp</we-button>
+        <we-button data-select-class="wow fadeInUpBig">fadeInUpBig</we-button>
+        
+        <we-button data-select-class="wow fadeOut">fadeOut</we-button>
+        <we-button data-select-class="wow fadeOutDown">fadeOutDown</we-button>
+        <we-button data-select-class="wow fadeOutDownBig">fadeOutDownBig</we-button>
+        <we-button data-select-class="wow fadeOutLeft">fadeOutLeft</we-button>
+        <we-button data-select-class="wow fadeOutLeftBig">fadeOutLeftBig</we-button>
+        <we-button data-select-class="wow fadeOutRight">fadeOutRight</we-button>
+        <we-button data-select-class="wow fadeOutRightBig">fadeOutRightBig</we-button>
+        <we-button data-select-class="wow fadeOutUp">fadeOutUp</we-button>
+        <we-button data-select-class="wow fadeOutUpBig">fadeOutUpBig</we-button>
+        
+        <we-button data-select-class="wow animated flip">flip</we-button>
+        <we-button data-select-class="wow flipInX">flipInX</we-button>
+        <we-button data-select-class="wow flipInY">flipInY</we-button>
+        <we-button data-select-class="wow flipOutX">flipOutX</we-button>
+        <we-button data-select-class="wow flipOutY">flipOutY</we-button>
+        
+        <we-button data-select-class="wow lightSpeedIn">lightSpeedIn</we-button>
+        <we-button data-select-class="wow lightSpeedOut">lightSpeedOut</we-button>
+        
+        <we-button data-select-class="wow rotateIn">rotateIn</we-button>
+        <we-button data-select-class="wow rotateInDownLeft">rotateInDownLeft</we-button>
+        <we-button data-select-class="wow rotateInDownRight">rotateInDownRight</we-button>
+        <we-button data-select-class="wow rotateInUpLeft">rotateInUpLeft</we-button>
+        <we-button data-select-class="wow rotateInUpRight">rotateInUpRight</we-button>
+        
+        <we-button data-select-class="wow rotateOut">rotateOut</we-button>
+        <we-button data-select-class="wow rotateOutDownLeft">rotateOutDownLeft</we-button>
+        <we-button data-select-class="wow rotateOutDownRight">rotateOutDownRight</we-button>
+        <we-button data-select-class="wow rotateOutUpLeft">rotateOutUpLeft</we-button>
+        <we-button data-select-class="wow rotateOutUpRight">rotateOutUpRight</we-button>
+        
+        <we-button data-select-class="wow slideInUp">slideInUp</we-button>
+        <we-button data-select-class="wow slideInDown">slideInDown</we-button>
+        <we-button data-select-class="wow slideInLeft">slideInLeft</we-button>
+        <we-button data-select-class="wow slideInRight">slideInRight</we-button>
+        
+        <we-button data-select-class="wow slideOutUp">slideOutUp</we-button>
+        <we-button data-select-class="wow slideOutDown">slideOutDown</we-button>
+        <we-button data-select-class="wow slideOutLeft">slideOutLeft</we-button>
+        <we-button data-select-class="wow slideOutRight">slideOutRight</we-button>
+        
+        <we-button data-select-class="wow zoomIn">zoomIn</we-button>
+        <we-button data-select-class="wow zoomInDown">zoomInDown</we-button>
+        <we-button data-select-class="wow zoomInLeft">zoomInLeft</we-button>
+        <we-button data-select-class="wow zoomInRight">zoomInRight</we-button>
+        <we-button data-select-class="wow zoomInUp">zoomInUp</we-button>
+        
+        <we-button data-select-class="wow hinge">hinge</we-button>
+        <we-button data-select-class="wow jackInTheBox">jackInTheBox</we-button>
+        <we-button data-select-class="wow rollIn">rollIn</we-button>
+        <we-button data-select-class="wow rollOut">rollOut</we-button>
+        
+        
+        <we-button role="menuitem" data-select-class="">None</we-button> 
+
+            </we-collapse>
+        </we-collapse-area>
+    </div>
+    <!-- ANIMATION TYPES |  -->
+			
+	</xpath>    
+</template>
+       
+
+
+
+</odoo>
