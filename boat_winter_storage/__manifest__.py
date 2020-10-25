@@ -3,7 +3,7 @@
     'version': '13.0.1.0.0',
     'description': """
         """,
-    'depends': ['Nettivene','service_management'],
+    'depends': ['Nettivene','service_management','boat_on_water'],
     'data': [
         'views/storage_contract_views.xml',
         'views/location_views.xml',

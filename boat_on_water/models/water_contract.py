@@ -26,6 +26,7 @@ class WaterContract(models.Model):
     invoice_count = fields.Integer('Invoice Count', compute='_compute_invoice_count')
     invoice_id = fields.Many2one('account.move', 'Invoice', copy=False, readonly=True, tracking=True,
                                  domain=[('type', '=', 'out_invoice')])
+    winter_contract_id = fields.Many2one('storage.contract')
 
     @api.model
     def create(self, vals):
