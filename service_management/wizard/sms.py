@@ -52,14 +52,11 @@ class SendSMS(models.TransientModel):
     def default_body(self):
         sms_text = ''
         if self.env.context.get('active_model') == 'service.order':
-            sms_text = self.env['ir.config_parameter'].sudo().get_param(
-                'service_management.service_sms')
+            sms_text = self.env.company.service_sms
         if self.env.context.get('active_model') == 'storage.contract':
-            sms_text = self.env['ir.config_parameter'].sudo().get_param(
-                'boat_winter_storage.winter_storage_sms')
+            sms_text = self.env.company.winter_storage_sms
         if self.env.context.get('active_model') == 'water.contract':
-            sms_text = self.env['ir.config_parameter'].sudo().get_param(
-                'boat_on_water.water_contract_sms')
+            sms_text = self.env.company.water_contract_sms
         return sms_text
 
     # documents

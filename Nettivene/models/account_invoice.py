@@ -13,17 +13,19 @@ class AccountInvoice(models.Model):
         if self.trade_in_lines:
             for line in self.trade_in_lines:
                 self.trade_in_amount += line.cost
+        # self.amount_total = self.amount_total - self.trade_in_amount
+        # self.amount_residual = self.amount_residual - self.trade_in_amount
 
     def action_post(self):
         res = super(AccountInvoice, self).action_post()
-        self.amount_total = self.amount_total - self.trade_in_amount
-        self.amount_residual = self.amount_residual - self.trade_in_amount
+        # self.amount_total = self.amount_total - self.trade_in_amount
+        # self.amount_residual = self.amount_residual - self.trade_in_amount
         return res
 
     def button_draft(self):
-        res = super(AccountInvoice, self).button_draftd()
-        self.amount_total = self.amount_total - self.trade_in_amount
-        self.amount_residual = self.amount_residual - self.trade_in_amount
+        res = super(AccountInvoice, self).button_draft()
+        # self.amount_total = self.amount_total - self.trade_in_amount
+        # self.amount_residual = self.amount_residual - self.trade_in_amount
         return res
 
 
@@ -69,6 +71,16 @@ class SaleAdvancePaymentInv(models.TransientModel):
         }
         if order.fiscal_position_id:
             invoice_vals['fiscal_position_id'] = order.fiscal_position_id.id
+        for tl in order.trade_in_lines:
+            invoice_vals['invoice_line_ids'].append([(0,0,{
+                'name':tl.boat_id.name,
+                'price_unit':-tl.cost,
+                'quantity':1.0,
+                'product_id':tl.product_ref_id.id,
+                'sale_line_ids': [(6, 0, [so_line.id])],
+                'analytic_tag_ids': [(6, 0, so_line.analytic_tag_ids.ids)],
+                'analytic_account_id': order.analytic_account_id.id or False,
+            })])
         invoice = self.env['account.move'].create(invoice_vals)
         tradein_ids = []
         tradein_vals = {}
@@ -85,7 +97,7 @@ class SaleAdvancePaymentInv(models.TransientModel):
             'trade_in_lines': [(6, 0, tradein_ids)],
         })
         invoice.write({
-            'amount_total': invoice.amount_total - invoice.trade_in_amount,
+            'amount_total': invoice.amount_total,
         })
         invoice.message_post_with_view('mail.message_origin_link',
                     values={'self': invoice, 'origin': order},

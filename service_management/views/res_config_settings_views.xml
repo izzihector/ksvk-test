@@ -13,6 +13,7 @@
                             <div class="o_setting_right_pane">
                                 <div class ="content-group">
                                     <label for="service_sms" string="Default Service Order SMS Text: "/>
+                                    <br/>
                                     <field name="service_sms" class="textarea-sms"/>
                                 </div>
                             </div>

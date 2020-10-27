@@ -22,7 +22,7 @@ class ServiceOrder(models.Model):
     estimated_hours = fields.Float('Estimated Hours')
     completion_date = fields.Datetime('Completion Date',compute='compute_completion_date')
     planned_date = fields.Datetime('Planned Date')
-    serviceman = fields.Many2one('res.users','Serviceman')
+    serviceman = fields.Many2one('res.users','Serviceman', readonly=1)
     address_id = fields.Char('Delivery Address',states={'confirmed': [('readonly', True)]})
     service_lines = fields.One2many('service.order.line','service_id',string='Service Order Lines')
     service_operations = fields.One2many('service.operations', 'service_id', string='Service Operations')

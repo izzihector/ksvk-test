@@ -15,13 +15,13 @@
                     </field>
                 </page>
             </xpath>
-            <field name="amount_untaxed" position="after">
-                <label for="trade_in_amount" style="padding-right:10px;" string="Trade-in Amount"/>
-                <div style="text-align:right;">
-                    <b> - </b><field style="width:auto;" widget="monetary" name="trade_in_amount" nolabel="1"/>
-                </div>
-
-            </field>
+<!--            <field name="amount_untaxed" position="after">-->
+<!--                <label for="trade_in_amount" style="padding-right:10px;" string="Trade-in Amount"/>-->
+<!--                <div style="text-align:right;">-->
+<!--                    <b> - </b><field style="width:auto;" widget="monetary" name="trade_in_amount" nolabel="1"/>-->
+<!--                </div>-->
+<!---->
+<!--            </field>-->
         </field>
     </record>
 </odoo>

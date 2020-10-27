@@ -11,6 +11,7 @@ class SaleOrder(models.Model):
     default_margin_percentage = fields.Float('Margin Percentage', compute='compute_def_percent', default=0)
     model_id = fields.Many2one('boat.model')
     chain_lines_length = fields.Integer(compute='compute_chain_lines_length')
+    purchase_order_id = fields.Many2one('purchase.order')
 
     def compute_chain_lines_length(self):
         for rec in self:
@@ -312,7 +313,7 @@ class SaleOrder(models.Model):
                 #Add trade in lines to boat chain tab
                 trade_in_amount = 0
                 if self.trade_in_lines:
-                    warehouse_id = self.env['stock.warehouse'].search([('company_id','=',self.env.user.company_id.id)])
+                    warehouse_id = self.warehouse_id
                     purchase_order_id = self.env['purchase.order'].create({
                         "company_id": self.env.user.company_id.id,
                         "currency_id": self.env.user.company_id.currency_id.id,
@@ -321,6 +322,7 @@ class SaleOrder(models.Model):
                         "partner_id": self.partner_id.id,
                         "picking_type_id": warehouse_id.in_type_id.id,
                     })
+                    self.purchase_order_id = purchase_order_id.id
 
                     for line in self.trade_in_lines:
                         trade_in_amount += line.cost
@@ -333,7 +335,7 @@ class SaleOrder(models.Model):
                             parent_ids.append(boat)
 
                         if not line.product_ref_id:
-                            tradein_product_id = self.env['product.product'].create({
+                            tradein_product_vals = {
                                 'is_boat':True,
                                 'name':line.boat_id.name,
                                 'standard_price':line.cost,
@@ -344,10 +346,15 @@ class SaleOrder(models.Model):
                                 'parent_ids':[(6,0,parent_ids)],
                                 'type':'product',
                                 'boat_model':line.boat_id.model,
-                            })
+                            }
+                            if self.env.company.po_tax_id:
+                                tradein_product_vals.update({'supplier_taxes_id':[(4,self.env.company.po_tax_id.id,0)]})
+                            tradein_product_id = self.env['product.product'].create(tradein_product_vals)
                             line.write({"product_ref_id": tradein_product_id.product_tmpl_id.id})
                         else:
                             tradein_product_id = self.env['product.product'].search([('product_tmpl_id','=',line.product_ref_id.id)])
+                            if self.env.company.po_tax_id:
+                                tradein_product_id.write({'supplier_taxes_id':[(4,self.env.company.po_tax_id.id,0)]})
                         lines.product_id.tradein_boats = [
                             (0, 0, {"boat_id": tradein_product_id.product_tmpl_id.id, "cost": line.cost, })]
 
@@ -361,8 +368,7 @@ class SaleOrder(models.Model):
                         #             'main_boat_id': lines.product_id.product_tmpl_id.id,
                         #         })
 
-
-                        self.env['purchase.order.line'].create({
+                        purchase_vals = {
                             "name": line.boat_id.name,
                             "order_id": purchase_order_id.id,
                             "price_unit":line.cost,
@@ -371,7 +377,12 @@ class SaleOrder(models.Model):
                             "display_type": False,
                             "product_uom": 1,
                             "date_planned": self.date_order,
-                        })
+                        }
+                        if self.env.company.po_tax_id:
+                            purchase_vals.update({"taxes_id": [(4, self.env.company.po_tax_id.id, 0)]})
+                        print(purchase_vals,"kkjkkj")
+                        self.env['purchase.order.line'].create(purchase_vals)
+                        print("%%%%%%%%%%%")
                 # else:
                 parent_ids = [lines.product_id.product_tmpl_id.id]
                 self._cr.execute("""select parent_id from boat_chain_parent_rel where boat_id = %s""" % (
@@ -409,6 +420,7 @@ class SaleOrder(models.Model):
 
     def action_cancel(self):
         result = super(SaleOrder, self).action_cancel()
+        self.purchase_order_id.button_cancel()
         for lines in self.order_line:
             if lines.product_id.is_boat:
                 lines.product_id.active = True
@@ -426,12 +438,41 @@ class SaleOrder(models.Model):
             product_id.active = False
         return result
 
+    def action_draft(self):
+        result = super(SaleOrder, self).action_draft()
+        for lines in self.order_line:
+            if lines.product_id.is_boat:
+                lines.product_id.active = True
+                lines.product_id.product_tmpl_id.active = True
+                lines.product_id.boat_status = 'forsale'
+                lines.product_id.sold_info = False
+                lines.product_id.sold_date = ''
+                lines.product_id.sold_price = ''
+                lines.product_id.actual_sale_price = ''
+                # lines.product_id.product_tmpl_id.order_id = False
+        for lines in self.chain_lines:
+            lines.order_id = self.id
+        for lines in self.trade_in_lines:
+            product_id = lines.product_ref_id
+            product_id.active = True
+        return result
+
+
     def _create_invoices(self, grouped=False, final=False):
         moves = super(SaleOrder, self)._create_invoices()
         for move in moves:
             tradein_ids = []
             tradein_vals = {}
             for tl in self.trade_in_lines:
+                tl_product_id = self.env['product.product'].search([('product_tmpl_id','=',tl.product_ref_id.id)])
+                move.write({
+                    'invoice_line_ids':[(0,0,{
+                        'name': tl.boat_id.name,
+                        'price_unit': -tl.cost,
+                        'quantity': 1.0,
+                        'product_id': tl_product_id.id,
+                    })]
+                })
                 tradein_ids.append(self.env['tradein.lines'].create({
                     'boat_id': tl.boat_id.id,
                     'cost': tl.cost,
@@ -442,9 +483,6 @@ class SaleOrder(models.Model):
 
             move.write({
                 'trade_in_lines': [(6, 0, tradein_ids)],
-            })
-            move.write({
-                'amount_total': move.amount_total - move.trade_in_amount,
             })
         return moves
 

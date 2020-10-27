@@ -20,6 +20,7 @@
         'views/res_users_view.xml',
         'views/account_invoice_views.xml',
         'views/templates.xml',
+        'views/res_company_views.xml',
     ],
     'installable': True,
     'auto_install': False

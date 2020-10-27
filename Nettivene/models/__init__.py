@@ -7,3 +7,4 @@ from . import trade_in
 from . import boat_model
 from . import res_users
 from . import account_invoice
+from . import res_company
