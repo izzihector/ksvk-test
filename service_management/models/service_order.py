@@ -36,6 +36,7 @@ class ServiceOrder(models.Model):
     date_stop = fields.Date('Completed On')
     invoice_id = fields.Many2one('account.move', 'Invoice',copy=False, readonly=True, tracking=True,domain=[('type', '=', 'out_invoice')])
     contract_id = fields.Many2one('storage.contract')
+    order_id = fields.Many2one('sale.order')
     picking_id = fields.Many2one('stock.picking','Picking')
     fiscal_position_id = fields.Many2one('account.fiscal.position', string='Fiscal Position', compute='compute_fiscal_position')
 

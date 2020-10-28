@@ -4,9 +4,32 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button attrs="{'invisible':[('service_count','=',0)]}" name="action_view_services" type="object" class="oe_stat_button" icon="fa-pencil-square-o">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_value"><field name="service_count"/></span>
+                        <span class="o_stat_text">Service Orders</span>
+                    </div>
+                </button>
+                <button attrs="{'invisible':[('winter_storage_count','=',0)]}" name="action_view_winter_storage" type="object" class="oe_stat_button" icon="fa-pencil-square-o">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_value"><field name="winter_storage_count"/></span>
+                        <span class="o_stat_text">Winter Storage</span>
+                    </div>
+                </button>
+                <button attrs="{'invisible':[('water_contract_count','=',0)]}" name="action_view_water_contract" type="object" class="oe_stat_button" icon="fa-pencil-square-o">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_value"><field name="water_contract_count"/></span>
+                        <span class="o_stat_text">Water Contract</span>
+                    </div>
+                </button>
+            </xpath>
             <button name="action_quotation_send" position="after">
                 <button name="%(add_boat_wizard)d" type="action" string="Add Boat"/>
                 <button name="open_equipment_wizard" type="object" string="Add Equipment" />
+                <button name="create_service" type="object" string="Create Service Order" />
+                <button name="create_winter_storage" type="object" string="Create Winter Storage" />
+                <button name="create_water_contract" type="object" string="Create Water Contract" />
             </button>
             <field name="payment_term_id" position="after">
                 <field name="margin_amount"/>

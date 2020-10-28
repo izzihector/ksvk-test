@@ -30,6 +30,7 @@ class StorageContract(models.Model):
     fiscal_position_id = fields.Many2one('account.fiscal.position',string='Fiscal Position', default=_default_fiscal_position)
     delivery_address = fields.Text('Delivery Address')
     delivered = fields.Boolean('Delivered')
+    order_id = fields.Many2one('sale.order')
 
     @api.model
     def create(self, vals):

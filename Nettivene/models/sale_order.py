@@ -12,6 +12,92 @@ class SaleOrder(models.Model):
     model_id = fields.Many2one('boat.model')
     chain_lines_length = fields.Integer(compute='compute_chain_lines_length')
     purchase_order_id = fields.Many2one('purchase.order')
+    service_count = fields.Integer('Service Count', compute='_compute_service_count')
+    winter_storage_count = fields.Integer('Winter Storage Count', compute='_compute_winter_storage_count')
+    water_contract_count = fields.Integer('Water Contract Count', compute='_compute_water_contract_count')
+
+    def create_winter_storage(self):
+        for rec in self:
+            storage_id = self.env['storage.contract'].create({
+                'order_id': rec.id,
+                'partner_id': rec.partner_id.id,
+                'boat': rec.order_line[0].product_id.name,
+                'boat_length': rec.order_line[0].product_id.boat_length,
+                'boat_width': rec.order_line[0].product_id.boat_width,
+            })
+
+    def create_water_contract(self):
+        for rec in self:
+            contract_id = self.env['water.contract'].create({
+                'order_id': rec.id,
+                'partner_id': rec.partner_id.id,
+                'boat': rec.order_line[0].product_id.name,
+            })
+
+    def create_service(self):
+        for rec in self:
+            # product_id = self.env['product.product'].search([('product_tmpl_id', '=', rec.boat_id.id)])
+            service_id = self.env['service.order'].create({'order_id':rec.id,'partner_id': rec.partner_id.id})
+
+    def _compute_service_count(self):
+        ServiceOrder = self.env['service.order']
+        for order in self:
+            order.service_count = ServiceOrder.search_count(
+                [('order_id', '=', order.id)]) or 0
+
+    def _compute_winter_storage_count(self):
+        WinterStorage = self.env['storage.contract']
+        for order in self:
+            order.winter_storage_count = WinterStorage.search_count(
+                [('order_id', '=', order.id)]) or 0
+
+    def _compute_water_contract_count(self):
+        WaterContract = self.env['water.contract']
+        for order in self:
+            order.water_contract_count = WaterContract.search_count(
+                [('order_id', '=', order.id)]) or 0
+
+    def action_view_services(self):
+        self.ensure_one()
+        services = self.env['service.order'].search([('order_id', '=', self.id)])
+        action = self.env.ref('service_management.service_order_action').read()[0]
+        action["context"] = {"create": False}
+        if len(services) > 1:
+            action['domain'] = [('id', 'in', services.ids)]
+        elif len(services) == 1:
+            action['views'] = [(self.env.ref('service_management.service_order_form_view').id, 'form')]
+            action['res_id'] = services.ids[0]
+        else:
+            action = {'type': 'ir.actions.act_window_close'}
+        return action
+
+    def action_view_winter_storage(self):
+        self.ensure_one()
+        winter_storages = self.env['storage.contract'].search([('order_id', '=', self.id)])
+        action = self.env.ref('boat_winter_storage.storage_contract_action').read()[0]
+        action["context"] = {"create": False}
+        if len(winter_storages) > 1:
+            action['domain'] = [('id', 'in', winter_storages.ids)]
+        elif len(winter_storages) == 1:
+            action['views'] = [(self.env.ref('boat_winter_storage.storage_contract_form_view').id, 'form')]
+            action['res_id'] = winter_storages.ids[0]
+        else:
+            action = {'type': 'ir.actions.act_window_close'}
+        return action
+
+    def action_view_water_contract(self):
+        self.ensure_one()
+        contracts = self.env['water.contract'].search([('order_id', '=', self.id)])
+        action = self.env.ref('boat_on_water.water_contract_action').read()[0]
+        action["context"] = {"create": False}
+        if len(contracts) > 1:
+            action['domain'] = [('id', 'in', contracts.ids)]
+        elif len(contracts) == 1:
+            action['views'] = [(self.env.ref('boat_on_water.water_contract_form_view').id, 'form')]
+            action['res_id'] = contracts.ids[0]
+        else:
+            action = {'type': 'ir.actions.act_window_close'}
+        return action
 
     def compute_chain_lines_length(self):
         for rec in self:
@@ -85,6 +171,7 @@ class SaleOrder(models.Model):
                                 'parent_ids': [(6, 0, parent_ids)],
                                 'type': 'product',
                                 'boat_model': line.boat_id.model,
+                                'register_number':line.boat_id.register_number,
                             })
                             line.write({"product_ref_id": tradein_product_id.product_tmpl_id.id})
 
@@ -173,6 +260,7 @@ class SaleOrder(models.Model):
                                 'parent_ids': [(6, 0, parent_ids)],
                                 'type': 'product',
                                 'boat_model': line.boat_id.model,
+                                'register_number': line.boat_id.register_number,
                             })
                             line.write({"product_ref_id":tradein_product_id.product_tmpl_id.id})
 
@@ -346,6 +434,7 @@ class SaleOrder(models.Model):
                                 'parent_ids':[(6,0,parent_ids)],
                                 'type':'product',
                                 'boat_model':line.boat_id.model,
+                                'register_number': line.boat_id.register_number,
                             }
                             if self.env.company.po_tax_id:
                                 tradein_product_vals.update({'supplier_taxes_id':[(4,self.env.company.po_tax_id.id,0)]})

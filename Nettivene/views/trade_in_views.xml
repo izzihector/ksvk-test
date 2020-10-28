@@ -16,6 +16,7 @@
                                 <field name="engine_make_id"/>
                                 <field name="engine_mfg_year"/>
                                 <field name="engine_hours"/>
+                                <field name="register_number"/>
                             </group>
                         </group>
                     </sheet>

@@ -13,6 +13,7 @@ class TradeInProducts(models.Model):
     engine_hours = fields.Integer('Engine Hours')
     sale_order_id = fields.Many2one('sale.order','Sale Order')
     model = fields.Char('Model', required=1)
+    register_number = fields.Char('Register Number')
 
 class TradeInLines(models.Model):
     _name = 'tradein.lines'
