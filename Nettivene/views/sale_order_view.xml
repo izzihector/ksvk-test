@@ -32,8 +32,8 @@
                 <button name="create_water_contract" type="object" string="Create Water Contract" />
             </button>
             <field name="payment_term_id" position="after">
-                <field name="margin"/>
-                <field name="default_margin_percentage" readonly="1"/>
+                <field name="margin_amount"/>
+                <field name="margin_percentage" readonly="1"/>
                 <field name="model_id" invisible="1"/>
                 <field name="chain_lines_length" invisible="1"/>
             </field>

@@ -114,13 +114,23 @@ class ProductTemplate(models.Model):
     @api.depends('product_variant_ids', 'product_variant_ids.standard_price')
     def _compute_standard_price(self):
         for tmpl in self:
-            tmpl.standard_price = 0
-            variants = self.env['product.product'].search([('product_tmpl_id','=',tmpl.id)])
-            unique_variants = self.filtered(lambda template: len(template.product_variant_ids) == 1)
-            for template in unique_variants:
-                template.standard_price = template.product_variant_ids.standard_price
-            for id in variants:
-                tmpl.standard_price = id.standard_price
+            if tmpl.active == False:
+                variants = self.env['product.product'].search([('product_tmpl_id','=',tmpl.id),('active','=',False)])
+                if len(variants) > 0:
+                    tmpl.standard_price = variants[0].standard_price
+                else:
+                    tmpl.standard_price = 0
+            else:
+                unique_variants = self.filtered(lambda template: len(template.product_variant_ids) == 1)
+                for template in unique_variants:
+                    template.standard_price = template.product_variant_ids.standard_price
+                for template in (self - unique_variants):
+                    variants = self.env['product.product'].search(
+                        [('product_tmpl_id', '=', tmpl.id), ('active', '=', False)])
+                    if len(variants) > 0:
+                        template.standard_price = variants[0].standard_price
+                    else:
+                        template.standard_price = 0
 
     def copy(self, default=None):
         pr_id = super(ProductTemplate, self).copy(default)
