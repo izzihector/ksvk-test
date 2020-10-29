@@ -32,12 +32,8 @@
                 <button name="create_water_contract" type="object" string="Create Water Contract" />
             </button>
             <field name="payment_term_id" position="after">
-                <field name="margin_amount"/>
-                <label for="margin_percentage" />
-                <div>
-                    <field name="margin_percentage" class="oe_inline" readonly="1"/>
-                    <span class="o_form_label oe_inline" >%</span>
-                </div>
+                <field name="margin"/>
+                <field name="default_margin_percentage" readonly="1"/>
                 <field name="model_id" invisible="1"/>
                 <field name="chain_lines_length" invisible="1"/>
             </field>
@@ -78,13 +74,13 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale_margin.sale_margin_sale_order"/>
         <field name="arch" type="xml">
-            <field name="margin" position="after">
+            <xpath expr="//group[@name='note_group']//field[@name='margin']" position="after">
                 <label for="default_margin_percentage" />
                 <div style="text-align:right;">
                     <field name="default_margin_percentage" readonly="1" class="oe_inline"/>
                     <span>%</span>
                 </div>
-            </field>
+            </xpath>
         </field>
     </record>
 
