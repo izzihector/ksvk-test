@@ -352,7 +352,7 @@ class SaleOrder(models.Model):
             rec.margin_percentage = 0
             total_price = 0
             for line in self.chain_lines:
-                if line.actual_sale_price > 1:
+                if line.actual_sale_price >= 1:
                     total_price += line.actual_sale_price
                     rec.margin_amount += line.margin
                 if total_price > 0:
