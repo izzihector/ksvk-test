@@ -31,6 +31,7 @@ class StorageContract(models.Model):
     delivery_address = fields.Text('Delivery Address')
     delivered = fields.Boolean('Delivered')
     order_id = fields.Many2one('sale.order')
+    water_contract_id = fields.Many2one('water.contract')
 
     @api.model
     def create(self, vals):

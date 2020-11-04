@@ -7,6 +7,7 @@ class ServiceOrder(models.Model):
     _name = 'service.order'
     _description = 'Service Order'
     _inherit = ['portal.mixin','mail.thread']
+    _rec_name = 'partner_id'
 
     def _default_currency_id(self):
         return self.env.user.company_id.currency_id.id

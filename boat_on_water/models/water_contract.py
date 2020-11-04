@@ -27,6 +27,7 @@ class WaterContract(models.Model):
     invoice_id = fields.Many2one('account.move', 'Invoice', copy=False, readonly=True, tracking=True,
                                  domain=[('type', '=', 'out_invoice')])
     winter_contract_id = fields.Many2one('storage.contract')
+    winter_storage_count = fields.Integer('Winter Storage Count', compute='_compute_winter_storage_count')
     order_id = fields.Many2one('sale.order')
 
     @api.model
@@ -36,6 +37,14 @@ class WaterContract(models.Model):
                 'water.contract') or 'New'
         result = super(WaterContract, self).create(vals)
         return result
+
+    def create_winter_storage(self):
+        for rec in self:
+            storage_id = self.env['storage.contract'].create({
+                'water_contract_id': rec.id,
+                'partner_id': rec.partner_id.id,
+                'boat': rec.boat,
+            })
 
     @api.onchange('partner_id')
     def onchange_partner(self):
@@ -60,6 +69,27 @@ class WaterContract(models.Model):
 
     def confirm_contract(self):
         self.write({'state':'confirmed'})
+
+    def _compute_winter_storage_count(self):
+        WinterStorage = self.env['storage.contract']
+        for rec in self:
+            rec.winter_storage_count = WinterStorage.search_count(
+                [('water_contract_id', '=', rec.id)]) or 0
+
+    def action_view_winter_storage(self):
+        self.ensure_one()
+        winter_storages = self.env['storage.contract'].search([('water_contract_id', '=', self.id)])
+        action = self.env.ref('boat_winter_storage.storage_contract_action').read()[0]
+        action["context"] = {"create": False}
+        if len(winter_storages) > 1:
+            action['domain'] = [('id', 'in', winter_storages.ids)]
+        elif len(winter_storages) == 1:
+            action['views'] = [(self.env.ref('boat_winter_storage.storage_contract_form_view').id, 'form')]
+            action['res_id'] = winter_storages.ids[0]
+        else:
+            action = {'type': 'ir.actions.act_window_close'}
+        return action
+
 
     def _compute_invoice_count(self):
         Invoices = self.env['account.move']

@@ -10,6 +10,7 @@
                     <field name="state" widget="statusbar" statusbar_visible="draft,confirmed" />
                     <button name="confirm_contract" type="object" string="Confirm" class="oe_highlight" states="draft"/>
                     <button name="create_invoice" type="object" string="Create Invoice" class="oe_highlight" attrs="{'invisible':['|','!',('invoice_id','=',False),('free_charge','=',True)]}"/>
+                    <button name="create_winter_storage" type="object" string="Create Winter Storage" />
                     <button name="%(service_management.sms_message_action_form)d" type="action" string="Send SMS"/>
                 </header>
                 <sheet>
@@ -18,6 +19,12 @@
                             <div class="o_field_widget o_stat_info">
                                 <span class="o_stat_value"><field name="invoice_count"/></span>
                                 <span class="o_stat_text">Invoices</span>
+                            </div>
+                        </button>
+                        <button attrs="{'invisible':[('winter_storage_count','=',0)]}" name="action_view_winter_storage" type="object" class="oe_stat_button" icon="fa-pencil-square-o">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="winter_storage_count"/></span>
+                                <span class="o_stat_text">Winter Storage</span>
                             </div>
                         </button>
                     </div>
