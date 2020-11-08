@@ -27,6 +27,7 @@ class WaterContract(models.Model):
     invoice_id = fields.Many2one('account.move', 'Invoice', copy=False, readonly=True, tracking=True,
                                  domain=[('type', '=', 'out_invoice')])
     winter_contract_id = fields.Many2one('storage.contract')
+    winter_contract_ids = fields.Many2many(comodel_name='storage.contract')
     winter_storage_count = fields.Integer('Winter Storage Count', compute='_compute_winter_storage_count')
     order_id = fields.Many2one('sale.order')
 
@@ -45,6 +46,7 @@ class WaterContract(models.Model):
                 'partner_id': rec.partner_id.id,
                 'boat': rec.boat,
             })
+            rec.write({'winter_contract_ids':[(4,storage_id.id,0)]})
 
     @api.onchange('partner_id')
     def onchange_partner(self):

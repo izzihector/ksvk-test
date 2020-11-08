@@ -109,14 +109,19 @@ class StorageContract(models.Model):
         for contract in self:
             contract.water_contract_count = WaterContract.search_count(
                 [('winter_contract_id', '=', contract.id)]) or 0
+            # contract.water_contract_count += 1
+            if contract.water_contract_id:
+                contract.water_contract_count += 1
 
 
     def _compute_invoice_count(self):
         Invoices = self.env['account.move']
         # can_read = Invoice.check_access_rights('read', raise_exception=False)
         for contract in self:
+            # print(contract.water_contract_id)
             contract.invoice_count = Invoices.search_count(
                 [('contract_id', '=', contract.id)]) or 0
+
 
     def create_invoice(self):
         partner_invoice = self.partner_id
@@ -187,14 +192,16 @@ class StorageContract(models.Model):
 
     def action_view_water_contract(self):
         self.ensure_one()
-        water_contracts = self.env['water.contract'].search([('winter_contract_id', '=', self.id)])
+        water_contract_ids = []
+        water_contract_ids = self.env['water.contract'].search([('winter_contract_id', '=', self.id)]).ids
+        water_contract_ids.append(self.water_contract_id.id)
         action = self.env.ref('boat_on_water.water_contract_action').read()[0]
         action["context"] = {"create": False}
-        if len(water_contracts) > 1:
-            action['domain'] = [('id', 'in', water_contracts.ids)]
-        elif len(water_contracts) == 1:
+        if len(water_contract_ids) > 1:
+            action['domain'] = [('id', 'in', water_contract_ids)]
+        elif len(water_contract_ids) == 1:
             action['views'] = [(self.env.ref('boat_on_water.water_contract_form_view').id, 'form')]
-            action['res_id'] = water_contracts.ids[0]
+            action['res_id'] = water_contract_ids[0]
         else:
             action = {'type': 'ir.actions.act_window_close'}
         return action

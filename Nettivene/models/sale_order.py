@@ -224,7 +224,8 @@ class SaleOrder(models.Model):
             for row in vals["trade_in_lines"]:
                 if row[0] == 2:
                     boat_id = self.env['tradein.lines'].browse(row[1]).product_ref_id
-                    boat_id.active = False
+                    if not boat_id.reference_model:
+                        boat_id.active = False
                     # boat_id.product_tmpl_id.active = False
                     self._cr.execute("""delete from boat_chain_parent_rel where boat_id = %s or parent_id = %s""" % (boat_id.id, boat_id.id))
         result = super(SaleOrder, self).write(vals)
@@ -390,8 +391,9 @@ class SaleOrder(models.Model):
                 equipment_total += lines.price_unit
         for lines in self.order_line:
             if lines.product_id.is_boat:
-                lines.product_id.active = False
-                lines.product_id.product_tmpl_id.active = False
+                if not lines.product_id.reference_model:
+                    lines.product_id.active = False
+                    lines.product_id.product_tmpl_id.active = False
                 lines.product_id.boat_status = 'sold'
                 lines.product_id.sold_info = True
                 lines.product_id.sold_date = self.date_order
@@ -524,7 +526,8 @@ class SaleOrder(models.Model):
             lines.order_id = False
         for lines in self.trade_in_lines:
             product_id = lines.product_ref_id
-            product_id.active = False
+            if not product_id.reference_model:
+                product_id.active = False
         return result
 
     def action_draft(self):

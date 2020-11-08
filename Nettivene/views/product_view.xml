@@ -41,7 +41,7 @@
                             <field name="ad_url" widget="url"/>
                         </group>
                         <group>
-<!--                            <field name="nettix_location_id"/>-->
+                            <field name="reference_model"/>
                         </group>
                     </group>
                     <group>

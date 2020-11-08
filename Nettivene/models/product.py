@@ -109,6 +109,7 @@ class ProductTemplate(models.Model):
     is_equipment = fields.Boolean('Is an Equipment?')
     parent_ids = fields.Many2many('product.template','boat_chain_parent_rel','boat_id','parent_id',string='Chain Parent', copy=0)
     model_id = fields.Many2one('boat.model','Boat Model')
+    reference_model = fields.Boolean('Reference Model')
     # order_id = fields.Many2one('sale.order','Quotation')
 
     @api.depends('product_variant_ids', 'product_variant_ids.standard_price')
