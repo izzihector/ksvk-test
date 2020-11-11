@@ -2,6 +2,7 @@
     'name': 'Service Management',
     'version': '13.0.1.0.0',
     'description': """
+	wdwd
         """,
     'depends': ['sale_management','account','website', 'stock','Nettivene'],
     'data': [
