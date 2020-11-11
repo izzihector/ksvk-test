@@ -1168,10 +1168,6 @@ body.editor_enable
 		{
 			padding-top:0;
 			width:100%;
-			@include media-breakpoint-down(xs)
-            {
-                width:165px;
-            }
 			span
 			{
 				font-weight:normal;

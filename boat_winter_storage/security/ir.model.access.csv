@@ -1,3 +1,3 @@
 id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
-access_storage_contract,access_storage_contract,model_storage_contract,,1,1,1,1
-access_storage_location,access_storage_location,model_storage_location,,1,1,1,1
+access_storage_contract,access_storage_contract,model_storage_contract,base.group_user,1,1,1,1
+access_storage_location,access_storage_location,model_storage_location,base.group_user,1,1,1,1

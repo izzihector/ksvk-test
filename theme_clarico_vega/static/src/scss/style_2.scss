@@ -1779,7 +1779,7 @@ button:focus {
 /*=================== RTL ===================*/
 .o_rtl
 {
-    #mainSlider, #thumbnailSlider, .alternative_product_main , .accessory_product_main, .te_product_slider_2, .te_prod_slider_4, .te_brand_slider, .te_category_slider, .te_prod_slider_1, .te_prod_slider_5, .te_product_slider_6
+    .te_product_slider_2, .te_prod_slider_4, .te_category_slider, .te_prod_slider_1, .te_prod_slider_5, .te_product_slider_6
     {
         .owl-carousel {
             direction: ltr;
@@ -1817,26 +1817,12 @@ button:focus {
             }
         }
     }
-    .recommended_product_slider_main
-    {
-        .owl-nav
-        {
-            button.owl-prev
-            {
-                right:20px;
-                position: absolute;
-            }
-        }
-    }
     .te_product_slider_4
     {
         .owl-nav
         {
             min-width:15px;
         }
-    }
-    .fa.fa-angle-right, .fa.fa-angle-left{
-        transform:unset;
     }
 }
 /*--------- Load more for shop page ---------*/

@@ -6,6 +6,7 @@
             <field name="arch" type="xml">
                 <field name="website" position="after">
                     <field name="service_sms"/>
+                    <field name="service_email"/>
                 </field>
             </field>
     </record>

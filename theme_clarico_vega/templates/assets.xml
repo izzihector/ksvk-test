@@ -39,6 +39,7 @@
             <script type="text/javascript" src="/theme_clarico_vega/static/src/js/frontend/cart_popup.js"/>
             <script type="text/javascript" src="/emipro_theme_base/static/src/js/frontend/quick_view.js"/>
             <script type="text/javascript" src="/emipro_theme_base/static/src/js/frontend/price_slider.js"/>
+            <script type="text/javascript" src="/emipro_theme_base/static/src/js/frontend/banner_video.js"/>
             <script type="text/javascript" src="/emipro_theme_base/static/src/js/frontend/load_product_through_ajax.js"/>
             <script type="text/javascript" src="/emipro_theme_base/static/src/js/frontend/product_offer_slider.js"/>
             <!-- End by ept_1 -->

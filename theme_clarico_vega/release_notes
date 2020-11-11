@@ -1,3 +1,28 @@
+Version 13.0.1.7.5 - 5 Nov 20
+===================================
+Note:First upgrade emipro_theme_base and update theme.
+
+Improvement
+
+ - Slider code improvement changes.
+ 
+Version 13.0.1.7.4 - 3 Nov 20
+===================================
+Note:First upgrade emipro_theme_base and update theme.
+
+Improvement
+
+ - Improve Product configuration on brand.
+ - Improve code logic for better categories page render in shop page.
+
+Version 13.0.1.7.3 - 17 Oct 20
+===================================
+Note:First upgrade emipro_theme_base and update theme.
+
+Improvement
+
+ - Minor CSS improvements.
+
 Version 13.0.1.7.2 - 14 Aug 20
 ===================================
 Note:First upgrade emipro_theme_base and pwa_ept.

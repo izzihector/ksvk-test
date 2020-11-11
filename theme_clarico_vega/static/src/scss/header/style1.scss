@@ -22,6 +22,8 @@ header > nav.navbar{
 	@include media-breakpoint-down(sm){
 		border: 0 !important;
 		width:100%;
+		margin: 10px 0px;
+        min-height: unset;
 	}
 }
 .te_header_before_overlay,.te_header_navbar
@@ -263,45 +265,6 @@ header.o_header_affix.affix.affixed .te_header_before_overlay {
 		display: none;
 	}
 }
-/*Header on mobile view*/
-header.o_header_affix.affix {
-    @include media-breakpoint-down(sm){
-        position: relative !important;
-        margin: 0 !important;
-        top: 0 !important;
-        opacity: 0;
-        z-index: -1 !important;
-        pointer-events: none;
-    }
-}
-header.o_affix_enabled {
-    @include media-breakpoint-down(sm){
-        position: fixed !important;
-        top: auto;
-        left: 0;
-        right: 0;
-        z-index: 25;
-        @include transition(all,0.55s,ease);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-        height:auto;
-        background-color: nth($f_color, 5) !important;
-    }
-}
-#wrapwrap header.o_header_affix{
-    @include media-breakpoint-down(sm){
-        display: none !important;
-    }
-}
-#wrapwrap > header:not(.o_header_affix){
-    @include media-breakpoint-down(sm){
-        position: absolute;
-        top: auto;
-        right: 0;
-        bottom: auto;
-        left: 0;
-        z-index: 1000;
-    }
-}
 .te_header_style_1_main
 {
     .te_header_search {
@@ -475,5 +438,11 @@ header.o_affix_enabled {
             vertical-align: initial;
             font-weight: initial;
         }
+    }
+}
+/* Product filter option on Mobile view */
+.oe_website_sale .te_shop_filter_resp.sticky-filter{
+    @include media-breakpoint-down(sm){
+        top: 170px !important;
     }
 }

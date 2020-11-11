@@ -1,0 +1,14 @@
+<odoo>
+    <record id="res_users_view_form_water" model="ir.ui.view">
+            <field name="name">res.users.form.inherit.water</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='storage']" position="after">
+                    <group name="water">
+                        <field name="default_water_fiscal_position_id"/>
+                    </group>
+                </xpath>
+            </field>
+    </record>
+</odoo>

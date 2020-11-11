@@ -812,3 +812,12 @@ body.editor_enable.editor_has_snippets .te_header_navbar .container{
         opacity:1;
     }
 }
+/* Sticky product filter option */
+.te_shop_filter_resp.sticky-filter{
+    @include media-breakpoint-down(md){
+        top: 180px !important;
+    }
+    @include media-breakpoint-down(sm){
+        top: 140px !important;
+    }
+}

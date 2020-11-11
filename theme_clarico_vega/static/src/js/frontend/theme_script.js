@@ -93,7 +93,7 @@ odoo.define('theme_clarico_vega.theme_script', function(require) {
                 $(self).hide()
                 $(".te_srch_close").show();
                 setTimeout(function(){
-                    $('input[name="search"]').focus();
+                    $('header#top input[name="search"]').focus();
                 }, 500);
             }
             //style 2 3 and 4 resp view
@@ -625,7 +625,10 @@ odoo.define('theme_clarico_vega.theme_script', function(require) {
                     $('.modal-body.oe_website_sale > .o_product_feature_panel').remove();
                 }
             }, 500);
-
+            var owl_rtl = false;
+            if ($('#wrapwrap').hasClass('o_rtl')) {
+                owl_rtl = true;
+            }
             var slider = $('#mainSlider .owl-carousel');
             var thumbnailSlider = $('#thumbnailSlider .owl-carousel');
             $('#thumbnailSlider').show();
@@ -645,6 +648,7 @@ odoo.define('theme_clarico_vega.theme_script', function(require) {
             }
             slider.owlCarousel({
                 nav:true,
+                rtl: owl_rtl,
                 navText : ['<i class="fa fa-angle-left"></i>','<i class="fa fa-angle-right"></i>'],
                 items:1,
                 lazyLoad:true,
@@ -666,6 +670,7 @@ odoo.define('theme_clarico_vega.theme_script', function(require) {
                 center: $('#len-ept-image').val() > 5 ? true : false,
                 margin: 4,
                 nav:true,
+                rtl: owl_rtl,
                 navText : ['<i class="fa fa-angle-left"></i>','<i class="fa fa-angle-right"></i>'],
                 responsive:{
                     0:{
@@ -1064,6 +1069,10 @@ odoo.define('theme_clarico_vega.theme_script', function(require) {
 
         moveBackground();
 
+        var owl_rtl = false;
+        if ($('#wrapwrap').hasClass('o_rtl')) {
+            owl_rtl = true;
+        }
         $("#myCarousel_banner_prod_slider").find(".a-submit").click(function (event) {
             sale._onClickSubmit(event)
         });
@@ -1071,6 +1080,7 @@ odoo.define('theme_clarico_vega.theme_script', function(require) {
         var myCarousel_acce_full = $('.accessory_product_main.full-width .owl-carousel, .alternative_product_main.full-width .owl-carousel').owlCarousel({
             loop: false,
             rewind: true,
+            rtl: owl_rtl,
             margin: 10,
             lazyLoad:true,
             nav: true,
@@ -1099,6 +1109,7 @@ odoo.define('theme_clarico_vega.theme_script', function(require) {
         var myCarousel_acce_prod = $('.accessory_product_main .owl-carousel, .alternative_product_main .owl-carousel').owlCarousel({
             loop: false,
             rewind: true,
+            rtl: owl_rtl,
             margin: 10,
             lazyLoad:true,
             nav: true,
@@ -1241,8 +1252,13 @@ odoo.define('theme_clarico_vega.theme_script', function(require) {
         },
     });
 
+    var owl_rtl = false;
+    if ($('#wrapwrap').hasClass('o_rtl')) {
+        owl_rtl = true;
+    }
     $('.te_banner_slider_content').owlCarousel({
         loop: true,
+        rtl: owl_rtl,
         nav: true,
         dots: false,
         lazyLoad:true,

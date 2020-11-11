@@ -1946,6 +1946,7 @@ div#loginRegisterPopup {
     width: 100vw;
     height: 100vh;
     background-color: rgba(0,0,0,0.8);
+    display: none;
 }
 /* User name related style */
 .te_user_account {
@@ -1958,8 +1959,25 @@ div#loginRegisterPopup {
     }
 }
 .oe_website_sale_tx_status{
-.card.alert-success{
-background-color:theme-color('success') !important;
-border-color:theme-color('success') !important;
+    .card.alert-success{
+        background-color:theme-color('success') !important;
+        border-color:theme-color('success') !important;
+    }
 }
+html[data-view-xmlid="website_sale.product"] #oe_main_menu_navbar .o_menu_systray .o_mobile_preview a,
+html[data-view-xmlid="website_sale.product"] .o_main_navbar > ul.o_menu_systray > li:last-child a{
+    display:inline;
+}
+html[data-view-xmlid="website_sale.product"] .o_main_navbar > ul.o_menu_systray > li:last-child{
+    background: #00A09D;
+}
+html[data-view-xmlid="website_sale.product"] .o_main_navbar > ul.o_menu_systray > li > a.css_edit_dynamic {
+    padding: 15px 7.5px !important;
+}
+/* Layout height issue on Mac */
+.te_recently_viewed .o_carousel_product_card.card{
+    height:auto !important;
+}
+.ajax_cart_success_content section#product_detail .product-image-container .new_span {
+    height: auto !important;
 }

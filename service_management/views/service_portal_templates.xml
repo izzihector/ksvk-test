@@ -1,11 +1,23 @@
 <odoo>
     <template id="portal_my_home_service" name="Portal My Home : service entries" inherit_id="portal.portal_my_home" priority="20">
         <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
-            <t t-if="service_count" t-call="portal.portal_docs_entry">
+            <t t-call="portal.portal_docs_entry">
                 <t t-set="title">Services</t>
                 <t t-set="url" t-value="'/my/service_orders'"/>
                 <t t-set="count" t-value="service_count"/>
             </t>
+        </xpath>
+    </template>
+
+    <template id="portal_my_home_menu_service_breadcrumb" name="Portal layout : sales menu entries" inherit_id="portal.portal_breadcrumbs" priority="20">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'service' or service_order" t-attf-class="breadcrumb-item #{'active ' if not service_order else ''}">
+                <a t-if="service_order" t-attf-href="/my/service_orders?{{ keep_query() }}">Service Orders</a>
+                <t t-else="">Service Orders</t>
+            </li>
+            <li t-if="service_order" class="breadcrumb-item active">
+                <t t-esc="service_order.name"/>
+            </li>
         </xpath>
     </template>
 
@@ -17,15 +29,25 @@
                 <h4>Request Quotation</h4>
                 <form action="/submit_quotation" method="post" id="quote_form">
                     <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-                     <div class="alert alert-info" role="alert">
+                    <div class="alert alert-info" role="alert">
                         Your Request for Quotation has been successfully submitted.
                     </div>
-                    <label for="product">Select a Boat: </label>
-                    <select class="form-control" name="product">
-                         <t t-foreach="products" t-as="product">
-                              <option t-attf-value="#{product.id}"><t t-esc="product.name"/></option>
-                         </t>
-                    </select>
+                    <div class="form-group">
+                        <label for="product">Select a Boat: </label>
+                        <select class="form-control" name="product">
+                             <t t-foreach="products" t-as="product">
+                                  <option t-attf-value="#{product.id}"><t t-esc="product.name"/></option>
+                             </t>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="location">Customer Location</label>
+                        <input type="text" class="form-control" name="location" id="location"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="notes">Notes</label>
+                        <textarea class="form-control" name="notes" id="notes"/>
+                    </div>
                     <button id="submit_btn" class="btn btn-primary" style="margin-top:10px;" >Submit</button>
                 </form>
             </div>

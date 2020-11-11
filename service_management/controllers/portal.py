@@ -30,18 +30,23 @@ class CustomerPortal(CustomerPortal):
 
     @http.route(['/submit_quotation'], type='http', auth="public", website=True)
     def portal_submit_quotation(self, **kw):
+        print(kw,"######")
         partner = request.env.user.partner_id
         lines = request.env['service.order.line'].create({
             'product_id': int(kw.get('product')),
         })
         order_id = request.env['service.order'].create({
             'partner_id': partner.id,
+            'address_id': kw.get('location'),
+            'notes': kw.get('notes'),
             'service_lines': [(6, 0, [lines.id])]
         })
         line_id = request.env['service.order.line'].search([('id', '=', lines.id)])
         line_id.price_unit = line_id.product_id.list_price
         line_id.name = line_id.product_id.display_name
         template_obj = request.env['mail.mail']
+        print(request.env.company,"LLLLL")
+        receiver_email = request.env.company.service_email
         template_data = {
             'subject': 'Administrator Service Orders (Ref %s)' % (order_id.name),
             'body': """
@@ -54,7 +59,7 @@ class CustomerPortal(CustomerPortal):
                 -- 
                 Administrator""" % (partner.name, order_id.name, order_id.name, order_id.amount_total),
             'email_from': 'admin@example.com',
-            'email_to': ", ".join(partner.email),
+            'email_to': receiver_email or '',
             'record_name': order_id.name,
         }
         template_id = template_obj.create(template_data)
@@ -102,7 +107,7 @@ class CustomerPortal(CustomerPortal):
         values.update({
             'date': date_begin,
             'services': services.sudo(),
-            'page_name': 'quote',
+            'page_name': 'service',
             'pager': pager,
             'archive_groups': archive_groups,
             'default_url': '/my/service_order',

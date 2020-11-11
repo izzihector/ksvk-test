@@ -394,10 +394,10 @@ class SaleOrder(models.Model):
                 if not lines.product_id.reference_model:
                     lines.product_id.active = False
                     lines.product_id.product_tmpl_id.active = False
-                lines.product_id.boat_status = 'sold'
-                lines.product_id.sold_info = True
-                lines.product_id.sold_date = self.date_order
-                lines.product_id.sold_price = self.amount_untaxed - equipment_total
+                    lines.product_id.boat_status = 'sold'
+                    lines.product_id.sold_info = True
+                    lines.product_id.sold_date = self.date_order
+                    lines.product_id.sold_price = self.amount_untaxed - equipment_total
                 lines.product_id.actual_sale_price = self.amount_untaxed - equipment_total
 
                 #Add trade in lines to boat chain tab

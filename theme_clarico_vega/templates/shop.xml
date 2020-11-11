@@ -8,8 +8,9 @@
         <xpath expr="//a[@t-att-href='product_href']" position="replace">
             <a t-att-href="product_href" class="d-block h-100" itemprop="url">
                 <t t-if="website.is_lazy_load">
+                    <t t-set="img_size" t-value="'image_1024' if product_image_big else 'image_512'" />
                     <span class="new_span d-flex h-100 justify-content-center align-items-center">
-                        <img t-attf-data-src="/web/image/product.template/#{product.id}/image_1920"
+                        <img t-attf-data-src="/web/image/product.template/#{product.id}/#{img_size}"
                              t-attf-src="/web/image/website/#{website.id}/lazy_load_image"
                              class="img img-fluid lazyload"
                              alt="Product image"/>
@@ -17,7 +18,7 @@
                 </t>
                 <t t-else="">
                     <span t-field="product.image_1920"
-                          t-options="{'widget': 'image', 'class': 'lazy', 'preview_image': 'image_1024' if product_image_big else 'image_512', 'data-original': 'image_1024' if product_image_big else 'image_512'}"
+                          t-options="{'widget': 'image', 'class': 'lazy', 'preview_image': 'image_1024' if product_image_big else 'image_256', 'data-original': 'image_1024' if product_image_big else 'image_256'}"
                           class="new_span d-flex h-100 justify-content-center align-items-center"/>
                 </t>
             </a>
@@ -242,6 +243,12 @@
         <xpath expr="//div[hasclass('dropdown_sorty_by')]" position="attributes">
             <attribute name="class">dropdown mt-3 ml-sm-2 dropdown_sorty_by</attribute>
         </xpath>
+        <!-- add below code for price filter make as itis after applying -->
+        <xpath expr="//a[hasclass('dropdown-item')]" position="attributes">
+            <attribute name="t-att-href">keep('/shop', order=sortby[1],
+                min_price=request.params.get('min_price'),max_price=request.params.get('max_price'))
+            </attribute>
+        </xpath>
     </template>
     <!--======================= Grid/List View Button ==========================-->
     <template id="add_grid_or_list_option_ept" inherit_id="website_sale.add_grid_or_list_option">
@@ -276,8 +283,15 @@
         <xpath expr="//form[hasclass('js_attributes')]//ul" position="replace">
             <t t-set="is_associated_values_enabled"
                t-value="request.website.viewref('theme_clarico_vega.display_product_associate_attribute_value_ept').active"/>
+            <t t-set="search_products"
+               t-value="website.get_shop_products(search=search, category=category,attrib_values=attrib_values)"/>
             <t t-set="allowed_attr_value_ids"
+               t-value="search_products and search_products[0].attribute_line_ids.value_ids.ids"/>
+            <!--<t t-esc="allowed_attr_value_ids_ept" />
+            <span>Emipro </span>-->
+            <!--<t t-set="allowed_attr_value_ids"
                t-value="website.get_associated_value_ids(search=search, category=category,attrib_values=attrib_values)"/>
+            <t t-esc="allowed_attr_value_ids" />-->
             <t t-set="is_count_enable"
                t-value="request.website.viewref('theme_clarico_vega.website_attribute_values_count_ept').active"/>
 
@@ -295,7 +309,7 @@
                                     <t t-if="is_associated_values_enabled">
                                         <t t-if="v.id in allowed_attr_value_ids">
                                             <option t-if="is_count_enable" t-att-value="'%s-%s' % (a.id,v.id)"
-                                                    t-esc="'%s (%s)'% (v.name, website.get_product_count(v,search,category,attrib_values))"
+                                                    t-esc="'%s (%s)'% (v.name, len(v.pav_attribute_line_ids.filtered(lambda pro: search_products and pro.product_tmpl_id.id in search_products[0].ids).mapped('product_tmpl_id')))"
                                                     t-att-selected="v.id in attrib_set"/>
                                             <option t-if="not is_count_enable" t-att-value="'%s-%s' % (a.id,v.id)"
                                                     t-esc="v.name"
@@ -304,7 +318,7 @@
                                     </t>
                                     <t t-else="">
                                         <option t-if="is_count_enable" t-att-value="'%s-%s' % (a.id,v.id)"
-                                                t-esc="'%s (%s)'% (v.name, website.get_product_count(v,search,category,attrib_values))"
+                                                t-esc="'%s (%s)'% (v.name, len(v.pav_attribute_line_ids.filtered(lambda pro: search_products and pro.product_tmpl_id.id in search_products[0].ids).mapped('product_tmpl_id')))"
                                                 t-att-selected="v.id in attrib_set"/>
                                         <option t-if="not is_count_enable" t-att-value="'%s-%s' % (a.id,v.id)"
                                                 t-esc="v.name"
@@ -327,7 +341,7 @@
                                                     <span style="font-weight: normal" t-field="v.name"/>
                                                     <span style="font-weight: normal" class="te_prod_num"
                                                           t-if="is_count_enable"
-                                                          t-esc="'(%s)'% (website.get_product_count(v,search,category,attrib_values))"/>
+                                                          t-esc="'(%s)'% (len(v.pav_attribute_line_ids.filtered(lambda pro: search_products and pro.product_tmpl_id.id in search_products[0].ids).mapped('product_tmpl_id')))"/>
                                                 </label>
                                             </li>
                                         </t>
@@ -341,7 +355,7 @@
                                                 <span style="font-weight: normal" t-field="v.name"/>
                                                 <span style="font-weight: normal" class="te_prod_num"
                                                       t-if="is_count_enable"
-                                                      t-esc="'(%s)'% (website.get_product_count(v,search,category,attrib_values))"/>
+                                                      t-esc="'(%s)'% (len(v.pav_attribute_line_ids.filtered(lambda pro: search_products and pro.product_tmpl_id.id in search_products[0].ids).mapped('product_tmpl_id')))"/>
                                             </label>
                                         </li>
                                     </t>
@@ -362,9 +376,8 @@
                                                            t-att-title="v.name"/>
                                                 </label>
                                                 <span class="te_color-name" t-esc="v.name"/>
-                                                <span style="font-weight: normal"
-                                                      t-if="is_count_enable"
-                                                      t-esc="'(%s)'% (website.get_product_count(v,search,category,attrib_values))"/>
+                                                <span style="font-weight: normal" t-if="is_count_enable"
+                                                      t-esc="'(%s)'% (len(v.pav_attribute_line_ids.filtered(lambda pro: search_products and pro.product_tmpl_id.id in search_products[0].ids).mapped('product_tmpl_id')))"/>
                                             </li>
                                         </t>
                                     </t>
@@ -377,9 +390,8 @@
                                                        t-att-title="v.name"/>
                                             </label>
                                             <span class="te_color-name" t-esc="v.name"/>
-                                            <span style="font-weight: normal"
-                                                  t-if="is_count_enable"
-                                                  t-esc="'(%s)'% (website.get_product_count(v,search,category,attrib_values))"/>
+                                            <span style="font-weight: normal" t-if="is_count_enable"
+                                                  t-esc="'(%s)'% (len(v.pav_attribute_line_ids.filtered(lambda pro: search_products and pro.product_tmpl_id.id in search_products[0].ids).mapped('product_tmpl_id')))"/>
                                         </li>
                                     </t>
                                 </t>
@@ -387,6 +399,7 @@
                         </t>
                     </li>
                 </t>
+                
                 <t t-set="is_brand_filter_enabled"
                     t-value="request.website.viewref('theme_clarico_vega.product_brand_attribute_custom').active"/>
                 <t t-if="is_brand_filter_enabled">
@@ -444,7 +457,7 @@
                                                     <t t-if="v.id in allowed_attr_value_ids">
                                                         <t t-if="is_count_enable">
                                                             <t t-set="curr_count"
-                                                               t-value="website.get_product_count(v,search,category,attrib_values)"/>
+                                                               t-value="len(v.pav_attribute_line_ids.filtered(lambda pro: search_products and pro.product_tmpl_id.id in search_products[0].ids).mapped('product_tmpl_id'))"/>
                                                             <option t-att-value="'%s-%s' % (a.id,v.id)"
                                                                     t-esc="'%s (%s)' %(v.name,curr_count)"
                                                                     t-att-selected="v.id in attrib_set"/>
@@ -459,7 +472,7 @@
                                                 <t t-else="">
                                                     <t t-if="is_count_enable">
                                                         <t t-set="curr_count"
-                                                           t-value="website.get_product_count(v,search,category,attrib_values)"/>
+                                                           t-value="len(v.pav_attribute_line_ids.filtered(lambda pro: search_products and pro.product_tmpl_id.id in search_products[0].ids).mapped('product_tmpl_id'))"/>
                                                         <option t-att-value="'%s-%s' % (a.id,v.id)"
                                                                 t-esc="'%s (%s)' %(v.name,curr_count)"
                                                                 t-att-selected="v.id in attrib_set"/>
@@ -488,7 +501,7 @@
                                                                       t-field="v.name"/>
                                                                 <span style="font-weight: normal"
                                                                       t-if="is_count_enable"
-                                                                      t-esc="'(%s)'% (website.get_product_count(v,search,category,attrib_values))"/>
+                                                                      t-esc="'(%s)'% (len(v.pav_attribute_line_ids.filtered(lambda pro: search_products and pro.product_tmpl_id.id in search_products[0].ids).mapped('product_tmpl_id')))"/>
                                                             </label>
                                                         </li>
                                                     </t>
@@ -504,7 +517,7 @@
                                                                   t-field="v.name"/>
                                                             <span style="font-weight: normal"
                                                                   t-if="is_count_enable"
-                                                                  t-esc="'(%s)'% (website.get_product_count(v,search,category,attrib_values))"/>
+                                                                  t-esc="'(%s)'% (len(v.pav_attribute_line_ids.filtered(lambda pro: search_products and pro.product_tmpl_id.id in search_products[0].ids).mapped('product_tmpl_id')))"/>
                                                         </label>
                                                     </li>
                                                 </t>
@@ -527,7 +540,7 @@
                                                             <span class="te_color-name" t-esc="v.name"/>
                                                             <span style="font-weight: normal" class="pl-1"
                                                                   t-if="is_count_enable"
-                                                                  t-esc="'(%s)'% (website.get_product_count(v,search,category,attrib_values))"/>
+                                                                  t-esc="'(%s)'% (len(v.pav_attribute_line_ids.filtered(lambda pro: search_products and pro.product_tmpl_id.id in search_products[0].ids).mapped('product_tmpl_id')))"/>
                                                         </li>
                                                     </t>
                                                 </t>
@@ -543,7 +556,7 @@
                                                         <span class="te_color-name" t-esc="v.name"/>
                                                         <span style="font-weight: normal" class="pl-1"
                                                               t-if="is_count_enable"
-                                                              t-esc="'(%s)'% (website.get_product_count(v,search,category,attrib_values))"/>
+                                                              t-esc="'(%s)'% (len(v.pav_attribute_line_ids.filtered(lambda pro: search_products and pro.product_tmpl_id.id in search_products[0].ids).mapped('product_tmpl_id')))"/>
                                                     </li>
                                                 </t>
                                             </t>

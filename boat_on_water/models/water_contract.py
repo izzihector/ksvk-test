@@ -6,10 +6,14 @@ class WaterContract(models.Model):
     _name = 'water.contract'
     _description = 'Water Contract'
     _inherit = 'mail.thread'
+    _rec_name = 'partner_id'
 
     name = fields.Char('Name', readonly=1)
     partner_id = fields.Many2one('res.partner','Partner')
+    serviceman = fields.Many2one('res.users', 'Serviceman')
+    responsible = fields.Many2one('res.users', 'Responsible')
     boat = fields.Char(string='Boat')
+    boat_registry = fields.Char('Boat Registry')
     price = fields.Float('Price')
     estimated_hours = fields.Float('Estimated Hours')
     completion_date = fields.Datetime('Completion Date', compute='compute_completion_date')
@@ -30,6 +34,15 @@ class WaterContract(models.Model):
     winter_contract_ids = fields.Many2many(comodel_name='storage.contract')
     winter_storage_count = fields.Integer('Winter Storage Count', compute='_compute_winter_storage_count')
     order_id = fields.Many2one('sale.order')
+    fiscal_position_id = fields.Many2one('account.fiscal.position', string='Fiscal Position',
+                                         compute='compute_fiscal_position')
+
+    def compute_fiscal_position(self):
+        for rec in self:
+            if rec.serviceman and rec.serviceman.default_water_fiscal_position_id:
+                rec.fiscal_position_id = rec.serviceman.default_water_fiscal_position_id.id
+            else:
+                rec.fiscal_position_id = False
 
     @api.model
     def create(self, vals):

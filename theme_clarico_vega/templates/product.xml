@@ -431,7 +431,7 @@
                             <div class="product-header">
                                 <ul id="te_product_tabs" class="nav nav-tabs product-header-tabs" role="tablist">
                                     <li class="nav-item"
-                                        t-if="product.website_description or request.env.user._is_admin()">
+                                        t-if="product.website_description or request.env.user.has_group('website.group_website_designer')">
                                         <a class="nav-link active show"
                                            id="nav_tabs_link_1"
                                            data-toggle="tab"

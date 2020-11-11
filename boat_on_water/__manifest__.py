@@ -6,7 +6,7 @@
     'depends': ['Nettivene','service_management','boat_winter_storage'],
     'data': [
         'views/water_contract_views.xml',
-        # 'views/res_config_settings_views.xml',
+        'views/res_users_views.xml',
         'views/res_company_views.xml',
         'security/ir.model.access.csv',
         'data/water_data.xml',
