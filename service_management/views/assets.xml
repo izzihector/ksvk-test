@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Assets: scss, css, js -->
+    <template id="assets_front" inherit_id="website.assets_frontend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/service_management/static/src/js/quotation_form.js"></script>
+        </xpath>
+    </template>
+</odoo>
